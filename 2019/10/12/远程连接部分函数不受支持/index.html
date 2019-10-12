@@ -10,7 +10,8 @@
 
     <!--Description-->
     
-        <meta name="description" content="title:远程连接部分函数不受支持买了一个服务器玩在使用mstsc命令进行连接时出现报错，远程连接部分函数不受支持。研究了一下发现这个是因为微软Win10更新导致实现远程连接操控服务器时出现如下报错信息">
+        <meta name="description" content="买了一个服务器玩在使用mstsc命令进行连接时出现报错，远程连接部分函数不受支持。研究了一下发现这个是因为微软Win10更新导致实现远程连接操控服务器时出现如下报错信息搜索方案后发现拥有两种解决方式
+1.修改注册表，适用于几乎所有windows10系统(1)使用win+R打开运行框输入regedit">
     
 
     <!--Author-->
@@ -20,7 +21,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="CK的博客">
+        <meta property="og:title" content="远程连接部分函数不受支持">
     
 
     <!--Open Graph Description-->
@@ -31,7 +32,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
@@ -42,7 +43,7 @@
 
     <!-- Title -->
     
-    <title>CK的博客</title>
+    <title>远程连接部分函数不受支持 - CK的博客</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -135,7 +136,7 @@
     <div class="post-header">
         <h1 class="title">
             <a href="/2019/10/12/远程连接部分函数不受支持/">
-                无标题
+                远程连接部分函数不受支持
             </a>
         </h1>
         <div class="post-info">
@@ -153,8 +154,10 @@
         
 
         <!-- Post Content -->
-        <hr>
-<h2 id="title-远程连接部分函数不受支持"><a href="#title-远程连接部分函数不受支持" class="headerlink" title="title:远程连接部分函数不受支持"></a>title:远程连接部分函数不受支持</h2><p>买了一个服务器玩在使用mstsc命令进行连接时出现报错，远程连接部分函数不受支持。<br>研究了一下发现这个是因为微软Win10更新导致实现远程连接操控服务器时出现如下报错信息<br><img src="/images/link.png" alt></p>
+        <p>买了一个服务器玩在使用mstsc命令进行连接时出现报错，远程连接部分函数不受支持。研究了一下发现这个是因为微软Win10更新导致实现远程连接操控服务器时出现如下报错信息<br><img src="/images/link1.png" alt><br>搜索方案后发现拥有两种解决方式</p>
+<h2 id="1-修改注册表，适用于几乎所有windows10系统"><a href="#1-修改注册表，适用于几乎所有windows10系统" class="headerlink" title="1.修改注册表，适用于几乎所有windows10系统"></a>1.修改注册表，适用于几乎所有windows10系统</h2><h4 id="1-使用win-R打开运行框输入regedit进入系统注册表界面"><a href="#1-使用win-R打开运行框输入regedit进入系统注册表界面" class="headerlink" title="(1)使用win+R打开运行框输入regedit进入系统注册表界面"></a>(1)使用win+R打开运行框输入regedit进入系统注册表界面</h4><h4 id="2-找到HKEY-LOCAL-MACHINE-SOFTWARE-Microsoft-Windows-CurrentVersion-Policies-System"><a href="#2-找到HKEY-LOCAL-MACHINE-SOFTWARE-Microsoft-Windows-CurrentVersion-Policies-System" class="headerlink" title="(2)找到HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"></a>(2)找到<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</code></h4><h4 id="（3）选中System右击弹出框中新建项CredSSp，选中CredSSp右键新建项Parameters，选中Parameters新建DWORD-（32位）值（D）类型命名为AllowEncryptionOracle双击该项更改数据数值："><a href="#（3）选中System右击弹出框中新建项CredSSp，选中CredSSp右键新建项Parameters，选中Parameters新建DWORD-（32位）值（D）类型命名为AllowEncryptionOracle双击该项更改数据数值：" class="headerlink" title="（3）选中System右击弹出框中新建项CredSSp，选中CredSSp右键新建项Parameters，选中Parameters新建DWORD （32位）值（D）类型命名为AllowEncryptionOracle双击该项更改数据数值："></a>（3）选中<code>System</code>右击弹出框中新建项<code>CredSSp</code>，选中<code>CredSSp</code>右键新建项<code>Parameters</code>，选中<code>Parameters</code>新建DWORD （32位）值（D）类型命名为<code>AllowEncryptionOracle</code>双击该项更改数据数值：</h4><h4 id="如果为本地修改注册表："><a href="#如果为本地修改注册表：" class="headerlink" title="如果为本地修改注册表："></a>如果为本地修改注册表：</h4><p>0和1表示服务器必须是在注册表修补了 CredSSP 的情况下才可以连接<br>2表示服务器可以在没修补 CredSSP 的情况下连接<br>一般输入2即可</p>
+<h4 id="如果为服务器端修改注册表"><a href="#如果为服务器端修改注册表" class="headerlink" title="如果为服务器端修改注册表:"></a>如果为服务器端修改注册表:</h4><p>0表示客户端必须在注册表修补了 CredSSP 的情况下才可以连接<br>1和2表示客户端注册表可以没修补 CredSSP 的情况下连接<br>一般选1或2即可<br><img src="/images/link2.png" alt></p>
+<h2 id="2-修改本地组策略，针对专业版以上的win10系统"><a href="#2-修改本地组策略，针对专业版以上的win10系统" class="headerlink" title="2.修改本地组策略，针对专业版以上的win10系统"></a>2.修改本地组策略，针对专业版以上的win10系统</h2><h4 id="1-按下win-R显示运行框输入gpedit-msc打开本地策略组"><a href="#1-按下win-R显示运行框输入gpedit-msc打开本地策略组" class="headerlink" title="(1)按下win+R显示运行框输入gpedit.msc打开本地策略组"></a>(1)按下win+R显示运行框输入gpedit.msc打开本地策略组</h4><h4 id="2-打开管理模板-系统-凭据分配-选择Encryption-Oracle-Remediation或者加密Oracle修正"><a href="#2-打开管理模板-系统-凭据分配-选择Encryption-Oracle-Remediation或者加密Oracle修正" class="headerlink" title="(2)打开管理模板/系统/凭据分配 选择Encryption Oracle Remediation或者加密Oracle修正"></a>(2)打开管理模板/系统/凭据分配 选择<code>Encryption Oracle Remediation</code>或者加密<code>Oracle</code>修正</h4><h4 id="3-双击后选择已启用，保护级别或Protection-Level选择易受攻击或Vulnerable"><a href="#3-双击后选择已启用，保护级别或Protection-Level选择易受攻击或Vulnerable" class="headerlink" title="(3)双击后选择已启用，保护级别或Protection Level选择易受攻击或Vulnerable"></a>(3)双击后选择已启用，保护级别或<code>Protection Level</code>选择易受攻击或<code>Vulnerable</code></h4><h4 id="4-点击确定，连接服务器，如果不行重启机器。"><a href="#4-点击确定，连接服务器，如果不行重启机器。" class="headerlink" title="(4)点击确定，连接服务器，如果不行重启机器。"></a>(4)点击确定，连接服务器，如果不行重启机器。</h4><p><img src="/images/link3.png" alt></p>
 
     </div>
 
@@ -192,7 +195,7 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2019/10/12/远程连接部分函数不受支持/">无标题</a>
+                <a class="footer-post" href="/2019/10/12/远程连接部分函数不受支持/">远程连接部分函数不受支持</a>
             </li>
             
             <li>
