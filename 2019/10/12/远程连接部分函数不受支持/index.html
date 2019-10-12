@@ -10,12 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="博客终于弄好了，其中还是有几个坑的，所以总结一下以备不时之需
-git之坑1.git主要问题在于ssh的设置，如果ssh设置有问题在最后一步时会报错
-1ssh_exchange_identification: read: Connection reset by peer
-
-使用
-1ssh -T git">
+        <meta name="description" content="title:远程连接部分函数不受支持买了一个服务器玩在使用mstsc命令进行连接时出现报错，远程连接部分函数不受支持。研究了一下发现这个是因为微软Win10更新导致实现远程连接操控服务器时出现如下报错信息">
     
 
     <!--Author-->
@@ -25,7 +20,7 @@ git之坑1.git主要问题在于ssh的设置，如果ssh设置有问题在最后
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="第一篇随意的开始(git+hexo部署踩坑)">
+        <meta property="og:title" content="CK的博客">
     
 
     <!--Open Graph Description-->
@@ -36,7 +31,7 @@ git之坑1.git主要问题在于ssh的设置，如果ssh设置有问题在最后
 
     <!--Type page-->
     
-        <meta property="og:type" content="article">
+        <meta property="og:type" content="website">
     
 
     <!--Page Cover-->
@@ -47,7 +42,7 @@ git之坑1.git主要问题在于ssh的设置，如果ssh设置有问题在最后
 
     <!-- Title -->
     
-    <title>第一篇随意的开始(git+hexo部署踩坑) - CK的博客</title>
+    <title>CK的博客</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -139,13 +134,13 @@ git之坑1.git主要问题在于ssh的设置，如果ssh设置有问题在最后
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2019/10/10/踩坑/">
-                第一篇随意的开始(git+hexo部署踩坑)
+            <a href="/2019/10/12/远程连接部分函数不受支持/">
+                无标题
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-10-10</span>
+                <span class="date">2019-10-12</span>
             
             
             
@@ -158,33 +153,8 @@ git之坑1.git主要问题在于ssh的设置，如果ssh设置有问题在最后
         
 
         <!-- Post Content -->
-        <p>博客终于弄好了，其中还是有几个坑的，所以总结一下以备不时之需</p>
-<h2 id="git之坑"><a href="#git之坑" class="headerlink" title="git之坑"></a>git之坑</h2><p>1.git主要问题在于ssh的设置，如果ssh设置有问题在最后一步时会报错</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh_exchange_identification: <span class="built_in">read</span>: Connection reset by peer</span><br></pre></td></tr></table></figure>
-
-<p>使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com -v</span><br></pre></td></tr></table></figure>
-
-<p>来查看具体信息发现报错信息是</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key_load_public: No such file or directory</span><br></pre></td></tr></table></figure>
-
-<p>也就是告诉我在git上找不到我的公钥，分析一下应该是两种原因。<br>第一种网络有问题或者是git上的ssh还没有更新到数据库或者有延迟之类的，等一下或者换一个网络就好了。<br>我就是因为校园网把端口关了导致出现问题，一换热点立马好，坑爹学校阿里云连不上就算了连git都给我封<br>第二种是在git上录入的公钥有问题，使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
-
-<p>对照输出的指纹和git上面的指纹是否一致，确保完全一样，使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-
-<p>进行连接完成设置</p>
-<h2 id="hexo之坑"><a href="#hexo之坑" class="headerlink" title="hexo之坑"></a>hexo之坑</h2><p>1.hexo3.0后服务器单独的放了出去，所以在不装hexo服务器的情况下使用<code>hexo s</code>会报错所以我们在git bash中使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-server --save</span><br></pre></td></tr></table></figure>
-
-<p>来安装hexo服务器</p>
-<p>2.主题文件直接下载在themes文件夹下，在站点根目录下(即themes所在位置)的_config.yml中更改主题</p>
-<p>3.public文件夹中存储了生成的网页</p>
-<p>4.主题的语言更改位置同样在站点根目录下的_config.yml中更改</p>
-<p>5.博客的目录和布置在你下载的主题中的_config.yml中设置更改删除</p>
-<p>6.文章内容写在source/_posts下</p>
-<p>7.注意设置deploy时候在冒号后面加上空格，不然你hexo d后不会有任何反应</p>
+        <hr>
+<h2 id="title-远程连接部分函数不受支持"><a href="#title-远程连接部分函数不受支持" class="headerlink" title="title:远程连接部分函数不受支持"></a>title:远程连接部分函数不受支持</h2><p>买了一个服务器玩在使用mstsc命令进行连接时出现报错，远程连接部分函数不受支持。<br>研究了一下发现这个是因为微软Win10更新导致实现远程连接操控服务器时出现如下报错信息<br><img src="/images/link.png" alt></p>
 
     </div>
 
