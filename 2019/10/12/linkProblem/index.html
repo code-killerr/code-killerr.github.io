@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>远程连接部分函数不受支持 - CK-代码之道</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="CodeKiller,"> 
+    <meta name="description" content="买了一个服务器玩在使用mstsc命令进行连接时出现报错，远程连接部分函数不受支持。研究了一下发现这个是因为微软Win10更新导致实现远程连接操控服务器时出现如下报错信息搜索方案后发现拥有两种解决方式,"> 
+    <meta name="author" content="Code Killer"> 
+    <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">CK-代码之道</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">远程连接部分函数不受支持</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">远程连接部分函数不受支持</h1>
+        <div class="stuff">
+            <span>十月 12, 2019</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/服务器/">服务器</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/远程连接/">远程连接</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>买了一个服务器玩在使用mstsc命令进行连接时出现报错，远程连接部分函数不受支持。研究了一下发现这个是因为微软Win10更新导致实现远程连接操控服务器时出现如下报错信息<br><img src="/images/link1.png" alt><br>搜索方案后发现拥有两种解决方式</p>
+<h2 id="1-修改注册表，适用于几乎所有windows10系统"><a href="#1-修改注册表，适用于几乎所有windows10系统" class="headerlink" title="1.修改注册表，适用于几乎所有windows10系统"></a>1.修改注册表，适用于几乎所有windows10系统</h2><h4 id="1-使用win-R打开运行框输入regedit进入系统注册表界面"><a href="#1-使用win-R打开运行框输入regedit进入系统注册表界面" class="headerlink" title="(1)使用win+R打开运行框输入regedit进入系统注册表界面"></a>(1)使用win+R打开运行框输入regedit进入系统注册表界面</h4><h4 id="2-找到HKEY-LOCAL-MACHINE-SOFTWARE-Microsoft-Windows-CurrentVersion-Policies-System"><a href="#2-找到HKEY-LOCAL-MACHINE-SOFTWARE-Microsoft-Windows-CurrentVersion-Policies-System" class="headerlink" title="(2)找到HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"></a>(2)找到<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</code></h4><h4 id="（3）选中System右击弹出框中新建项CredSSp，选中CredSSp右键新建项Parameters，选中Parameters新建DWORD-（32位）值（D）类型命名为AllowEncryptionOracle双击该项更改数据数值："><a href="#（3）选中System右击弹出框中新建项CredSSp，选中CredSSp右键新建项Parameters，选中Parameters新建DWORD-（32位）值（D）类型命名为AllowEncryptionOracle双击该项更改数据数值：" class="headerlink" title="（3）选中System右击弹出框中新建项CredSSp，选中CredSSp右键新建项Parameters，选中Parameters新建DWORD （32位）值（D）类型命名为AllowEncryptionOracle双击该项更改数据数值："></a>（3）选中<code>System</code>右击弹出框中新建项<code>CredSSp</code>，选中<code>CredSSp</code>右键新建项<code>Parameters</code>，选中<code>Parameters</code>新建DWORD （32位）值（D）类型命名为<code>AllowEncryptionOracle</code>双击该项更改数据数值：</h4><h4 id="如果为本地修改注册表："><a href="#如果为本地修改注册表：" class="headerlink" title="如果为本地修改注册表："></a>如果为本地修改注册表：</h4><p>0和1表示服务器必须是在注册表修补了 CredSSP 的情况下才可以连接<br>2表示服务器可以在没修补 CredSSP 的情况下连接<br>一般输入2即可</p>
+<h4 id="如果为服务器端修改注册表"><a href="#如果为服务器端修改注册表" class="headerlink" title="如果为服务器端修改注册表:"></a>如果为服务器端修改注册表:</h4><p>0表示客户端必须在注册表修补了 CredSSP 的情况下才可以连接<br>1和2表示客户端注册表可以没修补 CredSSP 的情况下连接<br>一般选1或2即可<br><img src="/images/link2.png" alt></p>
+<h2 id="2-修改本地组策略，针对专业版以上的win10系统"><a href="#2-修改本地组策略，针对专业版以上的win10系统" class="headerlink" title="2.修改本地组策略，针对专业版以上的win10系统"></a>2.修改本地组策略，针对专业版以上的win10系统</h2><h4 id="1-按下win-R显示运行框输入gpedit-msc打开本地策略组"><a href="#1-按下win-R显示运行框输入gpedit-msc打开本地策略组" class="headerlink" title="(1)按下win+R显示运行框输入gpedit.msc打开本地策略组"></a>(1)按下win+R显示运行框输入gpedit.msc打开本地策略组</h4><h4 id="2-打开管理模板-系统-凭据分配-选择Encryption-Oracle-Remediation或者加密Oracle修正"><a href="#2-打开管理模板-系统-凭据分配-选择Encryption-Oracle-Remediation或者加密Oracle修正" class="headerlink" title="(2)打开管理模板/系统/凭据分配 选择Encryption Oracle Remediation或者加密Oracle修正"></a>(2)打开管理模板/系统/凭据分配 选择<code>Encryption Oracle Remediation</code>或者加密<code>Oracle</code>修正</h4><h4 id="3-双击后选择已启用，保护级别或Protection-Level选择易受攻击或Vulnerable"><a href="#3-双击后选择已启用，保护级别或Protection-Level选择易受攻击或Vulnerable" class="headerlink" title="(3)双击后选择已启用，保护级别或Protection Level选择易受攻击或Vulnerable"></a>(3)双击后选择已启用，保护级别或<code>Protection Level</code>选择易受攻击或<code>Vulnerable</code></h4><h4 id="4-点击确定，连接服务器，如果不行重启机器。"><a href="#4-点击确定，连接服务器，如果不行重启机器。" class="headerlink" title="(4)点击确定，连接服务器，如果不行重启机器。"></a>(4)点击确定，连接服务器，如果不行重启机器。</h4><p><img src="/images/link3.png" alt></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='c66051f15410cdf0ce12'
+        data-cs='7c5b8d4d8ea788a71288c1fef80b600b25004f5b'
+        data-r='code-killerr.github.io'
+        data-o='code-killerr'
+        data-a='code-killerr'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
