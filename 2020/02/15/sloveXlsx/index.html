@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>数据处理之xlsx文件探秘 - CK-代码之道</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="CodeKiller,"> 
+    <meta name="description" content="  最近在对’xlsx’文件中的许多数据进行分析处理，其中一个很棘手的问题是读取出’xlsx’表格中的文字颜色，按照文字颜色不同进行句子的划分。
+但是在’python’中的各种’xlsx’库均不支持,"> 
+    <meta name="author" content="Code Killer"> 
+    <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">CK-代码之道</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="https://code-killerr.github.io"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">数据处理之xlsx文件探秘</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">数据处理之xlsx文件探秘</h1>
+        <div class="stuff">
+            <span>二月 15, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/python/">python</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/xlsx/">xlsx</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/数据处理/">数据处理</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>  最近在对’xlsx’文件中的许多数据进行分析处理，其中一个很棘手的问题是读取出’xlsx’表格中的文字颜色，按照文字颜色不同进行句子的划分。</p>
+<p>但是在’python’中的各种’xlsx’库均不支持读取单个单元格中的文字样式，只能读出当前单元格的样式。</p>
+<p>便只能自己查文档，从底层进行分析来提取文字样式了，成功之后记录一下历程供以后参阅。<br><img src="/images/solveXlsx1.jpg" alt><br>#1.python库试错</p>
+<p>  对于这个问题先要找一下有没有相关的工具可以用，毕竟重复造轮子太浪费时间了，python处理xlsx的库找到了以下几个:</p>
+<p>##(1)xlwt/xlrd</p>
+<p>  这个库中’xlwt’是用来进行 excel 文件的存储，而’xlrd’是进行 excel 文件的保存，各种功能都比较基础，提供简单的数据处理功能，增删改查等，并不适应目前的需求，而且由于以前并不是用于处理’xlsx’文件的，比较旧，所以放弃。</p>
+<p>##(2)openpyxl</p>
+<p>这个库目前可以很好的处理’xlsx’文件,并且综合了’xlwt’和’xlrd’的功能，可以进行xlsx文件的读写操作，在提供’xlsx’文件增删改查功能的基础上还具有单元格样式查看以及其它的一些功能。</p>
+<p>但是样式查看仅限于单元格的样式，对于单元格中文字的样式只能读取到开头文字的样式，对于其余文字的样式束手无策。虽然很好用，但只能放弃。</p>
+<p>##(3)xlwings</p>
+<p>这个python库应该是处理’xlsx’功能最全的库了，大佬们总结的优点如下：</p>
+<p>###1.语法接近 VBA</p>
+<p>###2.可以用 Python 代码取代 VBA 编写宏</p>
+<p>###3.在 windows 可以用 Python 编写 Excel 用户自定义函数</p>
+<p>###4.全功能支持 Numpy Pandas matplotlib 等科学计算库</p>
+<p>###5.支持 Windows 和 MacOS</p>
+<p>###6.支持 Py2.7 Py3.3+</p>
+<p>也就说 office 能干的事，这货都能干，但为啥这货这么强大的，这是有原因的，强大的原因是因为这货就是打开微软的office来处理文件的，它不仅继承了 VB 的功能，还继承了 VB 奇慢无比的速度，甚至更慢，想想 excel 的打开速度就知道了。</p>
+<p>‘xlwings’库打开’xlsx’文件的具体流程就是打开 office ,载入’xlsx’文件，执行功能，关闭 office ，要是中间你忘了写 quit ,能给你分分钟开一堆 Excel 表格，而且其中要更改设置使 Excel 表格的界面不给你弹出来，如果不设置的后果就是程序在执行过程中会不停的给你弹出窗口，而且不仅你要在开始设置不弹出来，还要在结束后给它改回去，不然就会出现打开 Excel 表格时没有界面的捉急事情。</p>
+<p>同样的如果你在执行中间有 bug 程序中断了你还要手动给设置回去，设置回去后还要记得打开任务管理器把后台开的 Excel 表格给关掉，不关下次继续给你报错，甚至有的时候还会出现文件半天不知道为什么就打不开了的灵异事件。</p>
+<p>这种反人类的东西果断扔掉，是真的玩不来。</p>
+<p>####至此找工具的历程结束，实在找不到合适的库来进行操作。<br><img src="/images/solveXlsx2.jpg" alt></p>
+<p>#2.xlsx文件处理</p>
+<p>通过查询以及以前的隐写经历知道xlsx是可以解析成zip文件的，那么目前我们的目标就是从里面的xml文件中找到我们需要的信息来进行分析</p>
+<p>##(1).workbook.xml</p>
+<p>通过对压缩包中文件的排查，确定了我们需要的相关信息就在’workbook.xml’之中，于是使用’xml’库对其中的’xml’文件进行处理。</p>
+<p>在’xml’文件中每个’<si>‘即为一个单元格，每个’<si>‘中的’<r>‘即为当前单元格的一种文字样式，首先的思路是通过读取每个<r>中的内容来进行数据的分割。</r></r></si></si></p>
+<p>但是在处理过程中还是有问题了，因为需求是分割不同颜色的句子，有的’<r>‘标签出现分割只是因为字号，粗细等样式不一致才出现的，这样会导致分割出现问题，于是进一步更正思路为读取’<r>‘中的颜色样式来进行对比后再进行分割。</r></r></p>
+<p>但是仍旧出现了问题，因为有的句段是没有颜色属性的，经过排查发现没有颜色属性的句段颜色是按照文件设置的默认颜色来进行填充的，也就是Excel表格中自动的颜色，一般默认为黑色。这里应该是读取一下默认颜色，然后在给没有颜色样式的’<r>‘标签进行标记颜色样式，由于文件比较统一，暂时先默认黑色。</r></p>
+<p>后面具体内容由于疫情原因电脑扔公司了，拿到后再写吧，没代码真的不好写<br><img src="/images/solveXlsx3.jpg" alt></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='c66051f15410cdf0ce12'
+        data-cs='7c5b8d4d8ea788a71288c1fef80b600b25004f5b'
+        data-r='code-killerr.github.io'
+        data-o='code-killerr'
+        data-a='code-killerr'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
