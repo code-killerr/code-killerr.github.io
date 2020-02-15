@@ -10,8 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="CodeKiller,"> 
-    <meta name="description" content="  最近在对’xlsx’文件中的许多数据进行分析处理，其中一个很棘手的问题是读取出’xlsx’表格中的文字颜色，按照文字颜色不同进行句子的划分。
-但是在’python’中的各种’xlsx’库均不支持,"> 
+    <meta name="description" content="最近在对xlsx文件中的许多数据进行分析处理，其中一个很棘手的问题是读取出xlsx表格中的文字颜色，按照文字颜色不同进行句子的划分。
+但是在python中的各种xlsx库均不支持读取单个单元格中的文,"> 
     <meta name="author" content="Code Killer"> 
     <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -63,35 +63,24 @@
 
         </div>
         <div class="content markdown">
-            <p>  最近在对’xlsx’文件中的许多数据进行分析处理，其中一个很棘手的问题是读取出’xlsx’表格中的文字颜色，按照文字颜色不同进行句子的划分。</p>
-<p>但是在’python’中的各种’xlsx’库均不支持读取单个单元格中的文字样式，只能读出当前单元格的样式。</p>
-<p>便只能自己查文档，从底层进行分析来提取文字样式了，成功之后记录一下历程供以后参阅。<br><img src="/images/solveXlsx1.jpg" alt><br>#1.python库试错</p>
-<p>  对于这个问题先要找一下有没有相关的工具可以用，毕竟重复造轮子太浪费时间了，python处理xlsx的库找到了以下几个:</p>
-<p>##(1)xlwt/xlrd</p>
-<p>  这个库中’xlwt’是用来进行 excel 文件的存储，而’xlrd’是进行 excel 文件的保存，各种功能都比较基础，提供简单的数据处理功能，增删改查等，并不适应目前的需求，而且由于以前并不是用于处理’xlsx’文件的，比较旧，所以放弃。</p>
-<p>##(2)openpyxl</p>
-<p>这个库目前可以很好的处理’xlsx’文件,并且综合了’xlwt’和’xlrd’的功能，可以进行xlsx文件的读写操作，在提供’xlsx’文件增删改查功能的基础上还具有单元格样式查看以及其它的一些功能。</p>
+            <p>最近在对<code>xlsx</code>文件中的许多数据进行分析处理，其中一个很棘手的问题是读取出<code>xlsx</code>表格中的文字颜色，按照文字颜色不同进行句子的划分。</p>
+<p>但是在<code>python</code>中的各种<code>xlsx</code>库均不支持读取单个单元格中的文字样式，只能读出当前单元格的样式。</p>
+<p>便只能自己查文档，从底层进行分析来提取文字样式了，成功之后记录一下历程供以后参阅。<br><img src="/images/solveXlsx1.jpg" alt></p>
+<h1 id="1-python库试错"><a href="#1-python库试错" class="headerlink" title="1.python库试错"></a>1.python库试错</h1><p>  对于这个问题先要找一下有没有相关的工具可以用，毕竟重复造轮子太浪费时间了，python处理xlsx的库找到了以下几个:</p>
+<h2 id="1-xlwt-xlrd"><a href="#1-xlwt-xlrd" class="headerlink" title="(1)xlwt/xlrd"></a>(1)xlwt/xlrd</h2><p>  这个库中<code>xlwt</code>是用来进行 excel 文件的存储，而<code>xlrd</code>是进行 excel 文件的保存，各种功能都比较基础，提供简单的数据处理功能，增删改查等，并不适应目前的需求，而且由于以前并不是用于处理<code>xlsx</code>文件的，比较旧，所以放弃。</p>
+<h2 id="2-openpyxl"><a href="#2-openpyxl" class="headerlink" title="(2)openpyxl"></a>(2)openpyxl</h2><p>这个库目前可以很好的处理<code>xlsx</code>文件,并且综合了<code>xlwt</code>和<code>xlrd</code>的功能，可以进行xlsx文件的读写操作，在提供<code>xlsx</code>文件增删改查功能的基础上还具有单元格样式查看以及其它的一些功能。</p>
 <p>但是样式查看仅限于单元格的样式，对于单元格中文字的样式只能读取到开头文字的样式，对于其余文字的样式束手无策。虽然很好用，但只能放弃。</p>
-<p>##(3)xlwings</p>
-<p>这个python库应该是处理’xlsx’功能最全的库了，大佬们总结的优点如下：</p>
-<p>###1.语法接近 VBA</p>
-<p>###2.可以用 Python 代码取代 VBA 编写宏</p>
-<p>###3.在 windows 可以用 Python 编写 Excel 用户自定义函数</p>
-<p>###4.全功能支持 Numpy Pandas matplotlib 等科学计算库</p>
-<p>###5.支持 Windows 和 MacOS</p>
-<p>###6.支持 Py2.7 Py3.3+</p>
-<p>也就说 office 能干的事，这货都能干，但为啥这货这么强大的，这是有原因的，强大的原因是因为这货就是打开微软的office来处理文件的，它不仅继承了 VB 的功能，还继承了 VB 奇慢无比的速度，甚至更慢，想想 excel 的打开速度就知道了。</p>
-<p>‘xlwings’库打开’xlsx’文件的具体流程就是打开 office ,载入’xlsx’文件，执行功能，关闭 office ，要是中间你忘了写 quit ,能给你分分钟开一堆 Excel 表格，而且其中要更改设置使 Excel 表格的界面不给你弹出来，如果不设置的后果就是程序在执行过程中会不停的给你弹出窗口，而且不仅你要在开始设置不弹出来，还要在结束后给它改回去，不然就会出现打开 Excel 表格时没有界面的捉急事情。</p>
+<h2 id="3-xlwings"><a href="#3-xlwings" class="headerlink" title="(3)xlwings"></a>(3)xlwings</h2><p>这个python库应该是处理<code>xlsx</code>功能最全的库了，大佬们总结的优点如下：</p>
+<h4 id="1-语法接近-VBA"><a href="#1-语法接近-VBA" class="headerlink" title="1.语法接近 VBA"></a>1.语法接近 VBA</h4><h4 id="2-可以用-Python-代码取代-VBA-编写宏"><a href="#2-可以用-Python-代码取代-VBA-编写宏" class="headerlink" title="2.可以用 Python 代码取代 VBA 编写宏"></a>2.可以用 Python 代码取代 VBA 编写宏</h4><h4 id="3-在-windows-可以用-Python-编写-Excel-用户自定义函数"><a href="#3-在-windows-可以用-Python-编写-Excel-用户自定义函数" class="headerlink" title="3.在 windows 可以用 Python 编写 Excel 用户自定义函数"></a>3.在 windows 可以用 Python 编写 Excel 用户自定义函数</h4><h4 id="4-全功能支持-Numpy-Pandas-matplotlib-等科学计算库"><a href="#4-全功能支持-Numpy-Pandas-matplotlib-等科学计算库" class="headerlink" title="4.全功能支持 Numpy Pandas matplotlib 等科学计算库"></a>4.全功能支持 Numpy Pandas matplotlib 等科学计算库</h4><h4 id="5-支持-Windows-和-MacOS"><a href="#5-支持-Windows-和-MacOS" class="headerlink" title="5.支持 Windows 和 MacOS"></a>5.支持 Windows 和 MacOS</h4><h4 id="6-支持-Py2-7-Py3-3"><a href="#6-支持-Py2-7-Py3-3" class="headerlink" title="6.支持 Py2.7 Py3.3+"></a>6.支持 Py2.7 Py3.3+</h4><p>也就说 office 能干的事，这货都能干，但为啥这货这么强大的，这是有原因的，强大的原因是因为这货就是打开微软的office来处理文件的，它不仅继承了 VB 的功能，还继承了 VB 奇慢无比的速度，甚至更慢，想想 excel 的打开速度就知道了。</p>
+<p><code>xlwings</code>库打开<code>xlsx</code>文件的具体流程就是打开 office ,载入<code>xlsx</code>文件，执行功能，关闭 office ，要是中间你忘了写 quit ,能给你分分钟开一堆 Excel 表格，而且其中要更改设置使 Excel 表格的界面不给你弹出来，如果不设置的后果就是程序在执行过程中会不停的给你弹出窗口，而且不仅你要在开始设置不弹出来，还要在结束后给它改回去，不然就会出现打开 Excel 表格时没有界面的捉急事情。</p>
 <p>同样的如果你在执行中间有 bug 程序中断了你还要手动给设置回去，设置回去后还要记得打开任务管理器把后台开的 Excel 表格给关掉，不关下次继续给你报错，甚至有的时候还会出现文件半天不知道为什么就打不开了的灵异事件。</p>
 <p>这种反人类的东西果断扔掉，是真的玩不来。</p>
-<p>####至此找工具的历程结束，实在找不到合适的库来进行操作。<br><img src="/images/solveXlsx2.jpg" alt></p>
-<p>#2.xlsx文件处理</p>
-<p>通过查询以及以前的隐写经历知道xlsx是可以解析成zip文件的，那么目前我们的目标就是从里面的xml文件中找到我们需要的信息来进行分析</p>
-<p>##(1).workbook.xml</p>
-<p>通过对压缩包中文件的排查，确定了我们需要的相关信息就在’workbook.xml’之中，于是使用’xml’库对其中的’xml’文件进行处理。</p>
-<p>在’xml’文件中每个’<si>‘即为一个单元格，每个’<si>‘中的’<r>‘即为当前单元格的一种文字样式，首先的思路是通过读取每个<r>中的内容来进行数据的分割。</r></r></si></si></p>
-<p>但是在处理过程中还是有问题了，因为需求是分割不同颜色的句子，有的’<r>‘标签出现分割只是因为字号，粗细等样式不一致才出现的，这样会导致分割出现问题，于是进一步更正思路为读取’<r>‘中的颜色样式来进行对比后再进行分割。</r></r></p>
-<p>但是仍旧出现了问题，因为有的句段是没有颜色属性的，经过排查发现没有颜色属性的句段颜色是按照文件设置的默认颜色来进行填充的，也就是Excel表格中自动的颜色，一般默认为黑色。这里应该是读取一下默认颜色，然后在给没有颜色样式的’<r>‘标签进行标记颜色样式，由于文件比较统一，暂时先默认黑色。</r></p>
+<h4 id="至此找工具的历程结束，实在找不到合适的库来进行操作。"><a href="#至此找工具的历程结束，实在找不到合适的库来进行操作。" class="headerlink" title="至此找工具的历程结束，实在找不到合适的库来进行操作。"></a>至此找工具的历程结束，实在找不到合适的库来进行操作。</h4><p><img src="/images/solveXlsx2.jpg" alt></p>
+<h1 id="2-xlsx文件处理"><a href="#2-xlsx文件处理" class="headerlink" title="2.xlsx文件处理"></a>2.xlsx文件处理</h1><p>通过查询以及以前的隐写经历知道xlsx是可以解析成zip文件的，那么目前我们的目标就是从里面的xml文件中找到我们需要的信息来进行分析</p>
+<h2 id="1-workbook-xml"><a href="#1-workbook-xml" class="headerlink" title="(1).workbook.xml"></a>(1).workbook.xml</h2><p>通过对压缩包中文件的排查，确定了我们需要的相关信息就在<code>workbook.xml</code>之中，于是使用<code>xml</code>库对其中的<code>xml</code>文件进行处理。</p>
+<p>在<code>xml</code>文件中每个<code>&lt;si&gt;</code>即为一个单元格，每个<code>&lt;si&gt;</code>中的<code>&lt;r&gt;</code>即为当前单元格的一种文字样式，首先的思路是通过读取每个<r>中的内容来进行数据的分割。</r></p>
+<p>但是在处理过程中还是有问题了，因为需求是分割不同颜色的句子，有的<code>&lt;r&gt;</code>标签出现分割只是因为字号，粗细等样式不一致才出现的，这样会导致分割出现问题，于是进一步更正思路为读取<code>&lt;r&gt;</code>中的颜色样式来进行对比后再进行分割。</p>
+<p>但是仍旧出现了问题，因为有的句段是没有颜色属性的，经过排查发现没有颜色属性的句段颜色是按照文件设置的默认颜色来进行填充的，也就是Excel表格中自动的颜色，一般默认为黑色。这里应该是读取一下默认颜色，然后在给没有颜色样式的<code>&lt;r&gt;</code>标签进行标记颜色样式，由于文件比较统一，暂时先默认黑色。</p>
 <p>后面具体内容由于疫情原因电脑扔公司了，拿到后再写吧，没代码真的不好写<br><img src="/images/solveXlsx3.jpg" alt></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
