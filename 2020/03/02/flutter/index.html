@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flutter框架搭建webApp - CK-代码之道</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="CodeKiller,"> 
+    <meta name="description" content="Flutter是Google的SDK，可通过单一代码库为移动，Web和桌面提供精美，快速的用户体验。对于应用开发非常方便，对于Andorid App支持原生开发，混合开发以及webApp开发，由于自,"> 
+    <meta name="author" content="Code Killer"> 
+    <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">CK-代码之道</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="https://code-killerr.github.io"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Flutter框架搭建webApp</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Flutter框架搭建webApp</h1>
+        <div class="stuff">
+            <span>三月 02, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Flutter/">Flutter</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Web/">Web</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>Flutter是Google的SDK，可通过单一代码库为移动，Web和桌面提供精美，快速的用户体验。对于应用开发非常方便，对于Andorid App支持原生开发，混合开发以及webApp开发，由于自己太菜，所以从最简单的webApp开发开始，查阅官方文档，开始搞事情ヽ(ー_ー)ノ<br>本次我们需要的环境为:</p>
+<h4 id="1-Flutter-SDK"><a href="#1-Flutter-SDK" class="headerlink" title="1.Flutter SDK"></a>1.Flutter SDK</h4><h4 id="2-Chrome浏览器"><a href="#2-Chrome浏览器" class="headerlink" title="2.Chrome浏览器"></a>2.Chrome浏览器</h4><h4 id="3-一个合适的IDE"><a href="#3-一个合适的IDE" class="headerlink" title="3.一个合适的IDE"></a>3.一个合适的IDE</h4><h2 id="1-Flutter安装"><a href="#1-Flutter安装" class="headerlink" title="1.Flutter安装"></a>1.Flutter安装</h2><p>Flutter有多个<code>branch</code>,在<code>Flutter</code>文档中提供了安装稳定构建渠道的 <code>Flutter SDK</code>的<code>git</code>代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b stable https://github.com/flutter/flutter.git</span><br></pre></td></tr></table></figure>
+
+<p>但我们这次打算整一下webApp所以需要合适的<code>Flutter</code>版本，在文档中同样有其它<code>branch</code>的下载代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b beta https://github.com/flutter/flutter.git</span><br></pre></td></tr></table></figure>
+
+<p>当然，由于国内原因导致了下载速度可能过慢，这时候只要增加两个环境变量即可更改下载源<br><code>添加PUB_HOSTED_URL值为https://pub.flutter-io.cn</code><br><code>添加FLUTTER_STORAGE_BASE_URL值为https://storage.flutter-io.cn</code><br>这样就可以刷刷的下起来了┗( ▔, ▔ )┛<br>同样的，不想用<code>git</code>的小伙伴在<code>Flutter</code>文档中同样也有相关压缩包的下载链接，我先搬这了啊。</p>
+<div style="width:100%;margin:auto;text-align:center">
+    <a href="https://storage.flutter-io.cn/flutter_infra/releases/stable/windows/flutter_windows_v1.12.13+hotfix.8-stable.zip" target="_blank" rel="noopener">
+        <span style="background-color:darkblue;color:white;padding:10px 20px 10px 20px">我是FlutterSdk压缩包哦</span>
+    </a>
+</div>
+## 2.Flutter配置
+下载完成后我们万里长征开始了第一步，接下来进行框架相关的配置:
+1.复制`flutter`下的`bin`目录路径添加到环境变量`path`中，这一步是为了能够在命令行中执行flutter命令
+2.打开`cmd`命令行输入以下命令来检查版本是否最新
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter upgrade</span><br></pre></td></tr></table></figure>
+
+<p>3.输入以下命令开启web支持</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter config --enable-web</span><br></pre></td></tr></table></figure>
+
+<p>4.输入以下命令进行相关依赖检测</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter doctor</span><br></pre></td></tr></table></figure>
+
+<p>检测结果中需要Flutter,Chrome,Connected device三个选项为正常，由于本次为web开发，并不强制要求具有android studio或者xcode<br>5.输入以下命令列出可用设备</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter devices</span><br></pre></td></tr></table></figure>
+
+<p>返回的样式应该和下列返回值相近</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Chrome     • chrome     • web-javascript • Google Chrome 78.0.3904.108</span><br><span class="line">Web Server • web-server • web-javascript • Flutter Tools</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-项目建立"><a href="#3-项目建立" class="headerlink" title="3.项目建立"></a>3.项目建立</h2><p>这些搞定后我们的环境就差不多了，下来就该去建立项目了，在需要建立项目的文件夹中使用cmd命令行输入以下命令即可创建项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter create myapp</span><br></pre></td></tr></table></figure>
+
+<p>输入以下命令在chrome中部署应用,注意cmd命令行所在位置应该为项目文件所在位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter run -d chrome</span><br></pre></td></tr></table></figure>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='c66051f15410cdf0ce12'
+        data-cs='7c5b8d4d8ea788a71288c1fef80b600b25004f5b'
+        data-r='code-killerr.github.io'
+        data-o='code-killerr'
+        data-a='code-killerr'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
