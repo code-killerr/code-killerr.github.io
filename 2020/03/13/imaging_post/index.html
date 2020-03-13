@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>记录爬取数据中网站的骚操作 - CK-代码之道</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="CodeKiller,"> 
+    <meta name="description" content="1.剔除方式进行请求最近有需要爬取斯语的需求，于是找到了一个神奇的网站，但是网站发送的请求让人摸不到头脑，发送的请求的data是如下的样式
+12345678section_id: 2exclude[,"> 
+    <meta name="author" content="Code Killer"> 
+    <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">CK-代码之道</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="https://code-killerr.github.io"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">记录爬取数据中网站的骚操作</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">记录爬取数据中网站的骚操作</h1>
+        <div class="stuff">
+            <span>三月 13, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/website-anlayse/">website_anlayse</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="1-剔除方式进行请求"><a href="#1-剔除方式进行请求" class="headerlink" title="1.剔除方式进行请求"></a>1.剔除方式进行请求</h2><p>最近有需要爬取斯语的需求，于是找到了一个神奇的网站，但是网站发送的请求让人摸不到头脑，发送的请求的data是如下的样式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">section_id: 2</span><br><span class="line">exclude[]: 340753</span><br><span class="line">exclude[]: 322067</span><br><span class="line">exclude[]: 345753</span><br><span class="line">exclude[]: 345569</span><br><span class="line">exclude[]: 345723</span><br><span class="line">exclude[]: 345713</span><br><span class="line">exclude[]: 345667</span><br></pre></td></tr></table></figure>
+
+<p>起初脑子不动直接猜测是传数组进行页面的请求，但是返回的页面总是不对劲，因为一开始是在原网页的源文件上查找的，所以传进去的参数都能找到，查看返回的信息有一行参数也是一个数组，返回的内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">excluded: [&quot;340753&quot;, &quot;322067&quot;, &quot;345753&quot;, &quot;345569&quot;, &quot;345723&quot;, &quot;345713&quot;, &quot;345667&quot;, &quot;345701&quot;, &quot;345705&quot;, &quot;345703&quot;,…]</span><br></pre></td></tr></table></figure>
+
+<p>直接查找数组里面的id，在原网页上是存在的，和发送的data中的数组比较了一下发现，返回的数组明显长度比发送的长，盲猜是网页每次发送包含不同id的数组给后台来填充，然后通过填充好的数组id来发送相应网页。<br>期间读了一下response的数据，发送的数组中的id好像不在里面，但因为没有考虑到剔除，所以没有太在意，就是因为没有太在意就炸了，在postman中进行请求后继续对比，一直在找发送的数组和接收的数组之间的关系，突然查到exclude是不包含的意思，在postman上又搜索了一下发送的数组id，发现发送的id并没有在返回的数据中。<br>终于想到了正确答案，又测试了几遍发现，该网站请求方式是通过收集已经展示过的页面id回传给服务器，服务器按顺序发回剔除回传id的30个数据，按顺序是因为在post相同数据的情况下，服务器给的信息是一样的，同时给网页传送当前返回的30个数据的id加上页面上发送的id，作为页面下次请求时发送的id数组。<br>这种方式如果新闻看多了的话我感觉不仅会占用内存，而且还会返回大量的数组数据占用带宽，一定程度增加服务器的压力，真的是个神奇的方式，一脸懵逼。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='c66051f15410cdf0ce12'
+        data-cs='7c5b8d4d8ea788a71288c1fef80b600b25004f5b'
+        data-r='code-killerr.github.io'
+        data-o='code-killerr'
+        data-a='code-killerr'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
