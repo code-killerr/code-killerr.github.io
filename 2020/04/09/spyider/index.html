@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>python爬虫总结 - CK-代码之道</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="CodeKiller,"> 
+    <meta name="description" content="使用python进行数据爬取总结&amp;emsp;&amp;emsp;最近一直在使用python来进行数据的爬取，主要是由于工作需求，于是对如何使用python进行了研究，由于应届生嘛，会的东西可怜，唯一有点优势,"> 
+    <meta name="author" content="Code Killer"> 
+    <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">CK-代码之道</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="https://code-killerr.github.io"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">python爬虫总结</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">python爬虫总结</h1>
+        <div class="stuff">
+            <span>四月 09, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/BeautifulSoup/">BeautifulSoup</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Python/">Python</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/requests/">requests</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/spyider/">spyider</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="使用python进行数据爬取总结"><a href="#使用python进行数据爬取总结" class="headerlink" title="使用python进行数据爬取总结"></a>使用python进行数据爬取总结</h2><p>&emsp;&emsp;最近一直在使用python来进行数据的爬取，主要是由于工作需求，于是对如何使用python进行了研究，由于应届生嘛，会的东西可怜，唯一有点优势的就是学的快了。</p>
+<p>&emsp;&emsp;为了学习嘛，从最基础的方向开始，不使用框架只使用基础库来进行代码编写。</p>
+<h3 id="1-对于库的选取"><a href="#1-对于库的选取" class="headerlink" title="1.对于库的选取"></a>1.对于库的选取</h3><p>&emsp;&emsp;数据爬取这种东西在学校大概学过一些，所以对于网页的处理选取使用了bs4,网页访问在网上查了好多都是用的<code>requests</code>库，那么就用<code>requests</code>吧，真的可以说python太简单了，使用<code>requests</code>一行代码就能搞定与网页的链接，网络这种高大上的东西一直都觉得很复杂呢(T＿T)，好吧我承认上网络的时候我是飘过去的。</p>
+<h3 id="2-爬取过程以及遇到的问题"><a href="#2-爬取过程以及遇到的问题" class="headerlink" title="2.爬取过程以及遇到的问题"></a>2.爬取过程以及遇到的问题</h3><p>&emsp;&emsp;既然库选定了，那么就开始数据的爬取吧，主要流程很简单，综合来说就是使用<code>requests</code>进行网页的获取，然后使用<code>BeautifulSoup</code>来进行数据整理，从里面筛选出有用的数据.首先写下获取网页的代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">requests.get(url)</span><br><span class="line">requests.post(url)</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;其中url填写要爬的网址就行了，真的很简单，get一般用来单纯的得到网页信息而post则用来对网页发送数据，然后网页才会给你返回你想要的东西，千万不要弄混了，不然会出现网页获取内容有问题的情况，我就干了好多次(/ω＼)，我知道我菜，不要打了o(╥﹏╥)o</p>
+<p>&emsp;&emsp;同时胆小的我怕被网站封ip,或者防止无法通过某些网站的检测我还给请求加了个(headers)头，对，一个正常的头往往能掩饰一个不正经的人(｀＾´)ノ</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">headers = &#123;&apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&apos;,&apos;Connection&apos;: &apos;close&apos;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;好了，这个玩意就是我们的头的，有了头的我们就可以站着走路了，不用天天顶着一个python的头到处晃悠了，看见那个Chrome嘛，多大多耀眼!!!∑(ﾟДﾟノ)ノ</p>
+<p>&emsp;&emsp;由于我是写了一段时间才发的文章，所有注意的一次写清楚吧，在进行爬取的时候还会出现这样的错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by SSLError(SSLError(&quot;bad handshake: SysCallError(-1, &apos;Unexpected EOF&apos;)&quot;,),)</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;这里可以设置<code>verify</code>为<code>false</code>来进行规避，但是关闭后会有很讨厌的<code>warnning</code>,使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requests.packages.urllib3.disable_warnings()</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;可以忽略掉<code>warnning</code>,到这里当然还没有结束，一个可怕但是又难以发现的问题出现了，使用<code>requests</code>时会出现假死的情况，需要设置<code>timeout</code>,当请求时间超过延迟时间时将断开连接并报<code>run timeout</code>错误。这个坑是真的坑，程序放在一边爬上几十个小时，回头一看假死了，实际上就爬了几个小时，真的太浪费了，没错，我干过这事，别打了别打了o(╥﹏╥)o，我知道我菜。</p>
+<p>&emsp;当然还有最重要的一点就是异常处理，真的对于这种动不动就有错误的网络连接你不希望一个报错就让程序停止吧，年少不知加异常，爬取数据重连忙(Ｔ▽Ｔ)</p>
+<p>&emsp;还有一个是设置重连次数，次数设置的越高，那么爬网页失败的几率越小，但是花费的时间也就越多,使用如下代码就可以进行次数的设置了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requests.adapters.DEFAULT_RETRIES = 3</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;好了，我们的<code>requests</code>就处理完了，把这些东西综合了一下写出来了函数对进行处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#忽略警告</span><br><span class="line">requests.packages.urllib3.disable_warnings()</span><br><span class="line">#加个头</span><br><span class="line">headers = &#123;</span><br><span class="line">    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36&apos;,&apos;Connection&apos;: &apos;close&apos;</span><br><span class="line">&#125;</span><br><span class="line">#断线重连次数</span><br><span class="line">requests.adapters.DEFAULT_RETRIES = 3</span><br><span class="line">def requestData(url,datas = None):</span><br><span class="line">    global errorNum</span><br><span class="line">    flag = False</span><br><span class="line">    for i in range(0,3):</span><br><span class="line">            try:</span><br><span class="line">                if datas == None:</span><br><span class="line">                    response = requests.get(url = url,headers=headers,verify=False,timeout = 60)</span><br><span class="line">                else:</span><br><span class="line">                    response = requests.post(url = url,headers=headers,data = datas,verify=False,timeout = 60)</span><br><span class="line">                flag = True</span><br><span class="line">                break</span><br><span class="line">            except Exception as e:</span><br><span class="line">                print(url+&apos; is error!\n&apos;+str(e)+&apos;\n\n&apos;)</span><br><span class="line">                flag = False</span><br><span class="line">                time.sleep(10)</span><br><span class="line">                continue</span><br><span class="line">    if not flag:</span><br><span class="line">        print(url + &apos; cant connect!!&apos;)</span><br><span class="line">        return None</span><br><span class="line">    return response</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;这里请允许我解释一下我干了点啥，由于经常爬的是国外的数据，所以当没连上时我又任性的进行了三次重连操作以保证获取到的数据量，好吧ヽ(ー_ー)ノ主要是因为后面使用了多线程爬虫，导致连接失败几率大增，所以使用这样的方式来减少同时对于相同网站的请求频率，反正后面也要说多线程，就简单谈一下我这么干的想法吧。</p>
+<p>&emsp;&emsp;如果开启多线程，就像一条路突然涌进去了一大推车，那么造成的结果就是，这条路堵住了，大家都想同时走，谁都不让谁，那么怎么样才能不堵呢，就是让这些车错峰出行，这辆车先走1秒，那辆车晚走1秒，这样就不会有一大堆车堵在路中间了，当然python多线程是假的，还是一个线程一个线程的进行请求的发送，但是太快了就容易堵，我就用自己的方式来减少发送的频率，尽量不都挤在一个时间发送，如果说同时开启十个线程进行请求，如果当请求完成你进行了打印的话了你会看到一个令人懵逼的场景，突然一阵突然打印一堆东西，然后又突然的平静下来，再一次突然冒出一堆东西，我这坐过山车呢嘛｀Д´|，所以也这么设置一下让自己稍微舒服一点，而且布置很多线程也不会有很大的压力。</p>
+<p>&emsp;&emsp;这么设置的好处在于，如果你的网络很ok，对方服务器也没问题，那么一般不会出现错误，这个东西也用不上，因为你没错误正常过去请求就好了，但是如果突然出现堵在一起的问题，会出现一些线程请求成功了，但是一些线程请求失败了的情况，有这种情况的出现，那么说明网络出现了问题，为了减轻负担，最好的做法就是减少流量，减少流量的方式就是，失败的线程你晚点走，把道路先空出来让其它的线程先请求，这样同时进行请求的线程就变少，那么就算网络波动，仍然还是可以让我顺畅的进行请求，后面没啥问题了，过了10秒错误的线程在重新进行请求，恢复正常的工作，这东西咋和车辆限号出行这么像呢。</p>
+<p>&emsp;&emsp;当然如果路还是堵着的话，你们挤一挤让别的线程继续等呗，这样的话一般可以让请求数永远都适配网络环境，换句话说就是能让汽车的数量刚好和道路的宽度适配，每次过去的车都刚好是道路最大能够通行的车的数量。我废话好多啊(￣～￣;)</p>
+<p>&emsp;&emsp;<code>requests</code>进行请求搞定了，后面就是数据处理分析了</p>
+<h3 id="3-爬虫进阶"><a href="#3-爬虫进阶" class="headerlink" title="3.爬虫进阶"></a>3.爬虫进阶</h3><p>多线程，ip池，分布式没有多个设备不好实现</p>
+<h3 id="4-尝试方向，使用框架等"><a href="#4-尝试方向，使用框架等" class="headerlink" title="4.尝试方向，使用框架等"></a>4.尝试方向，使用框架等</h3>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='c66051f15410cdf0ce12'
+        data-cs='7c5b8d4d8ea788a71288c1fef80b600b25004f5b'
+        data-r='code-killerr.github.io'
+        data-o='code-killerr'
+        data-a='code-killerr'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
