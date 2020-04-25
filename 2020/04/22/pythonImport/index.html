@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>pytho使用import注意点 - CK-代码之道</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="CodeKiller,"> 
+    <meta name="description" content="&amp;emsp;&amp;emsp;萌新在python中使用import导包中需要注意的地方&amp;emsp;&amp;emsp;最近在使用一些库的时候出现了这样的现象，当只使用import导入包的时候是不能直接使用其中函数,"> 
+    <meta name="author" content="Code Killer"> 
+    <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">CK-代码之道</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="https://code-killerr.github.io"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">pytho使用import注意点</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">pytho使用import注意点</h1>
+        <div class="stuff">
+            <span>四月 22, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Python/">Python</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/import/">import</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="emsp-emsp-萌新在python中使用import导包中需要注意的地方"><a href="#emsp-emsp-萌新在python中使用import导包中需要注意的地方" class="headerlink" title="&emsp;&emsp;萌新在python中使用import导包中需要注意的地方"></a>&emsp;&emsp;萌新在python中使用import导包中需要注意的地方</h1><h3 id="emsp-emsp-最近在使用一些库的时候出现了这样的现象，当只使用import导入包的时候是不能直接使用其中函数的，只有当from-import时才可以-所以特意研究了一下以前一直没有注意过的导包机制。"><a href="#emsp-emsp-最近在使用一些库的时候出现了这样的现象，当只使用import导入包的时候是不能直接使用其中函数的，只有当from-import时才可以-所以特意研究了一下以前一直没有注意过的导包机制。" class="headerlink" title="&emsp;&emsp;最近在使用一些库的时候出现了这样的现象，当只使用import导入包的时候是不能直接使用其中函数的，只有当from import时才可以,所以特意研究了一下以前一直没有注意过的导包机制。"></a>&emsp;&emsp;最近在使用一些库的时候出现了这样的现象，当只使用<code>import</code>导入包的时候是不能直接使用其中函数的，只有当<code>from import</code>时才可以,所以特意研究了一下以前一直没有注意过的导包机制。</h3><p>&emsp;&emsp;python中使用<code>import</code>可以导入很多东西，这次主要研究其中的包和模块，模块是指单个<code>py</code>文件而包是指具有多个模块或者子包的文件夹，由于本人一直习惯用import不怎么喜欢加from,所以东窗事发突然爆炸，就研究了一下导包。</p>
+<h3 id="这里需要注意的是导入要使用的函数时最好使用from-import。"><a href="#这里需要注意的是导入要使用的函数时最好使用from-import。" class="headerlink" title="这里需要注意的是导入要使用的函数时最好使用from import。"></a>这里需要注意的是导入要使用的函数时最好使用<code>from import</code>。</h3><p>&emsp;为什么要这样呢，因为导入包名其实是<strong>无法直接使用包内的子包和模块的</strong>，这点很重要，这也就是为什么有的包只用import时会报错的原因。</p>
+<p>&emsp;很多接触python时间不长或者没怎么研究过导包的童鞋都会认为把一个包import后,里面的模块和子包就都能用了，就算不能用直接from import就可以，但是并没有探究过为什么会这样。</p>
+<p>&emsp;python在只使用<code>import</code>导入包时只会将包中<strong>一级目录下的文件</strong>来引入命名空间，再下级的目录<strong>并不会进行引入</strong>，在同级中模块里的函数并不会检测，所以在使用模块里的函数时需要通过完整的路径调用。</p>
+<h3 id="例如"><a href="#例如" class="headerlink" title="例如:"></a>例如:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--package</span><br><span class="line">  -aa.py</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;现在aa.py中存在函数bb()</p>
+<p>&emsp;我们调用<code>bb()</code>的时候如果使用的是<code>import package</code>不能够直接使用<code>package.bb()</code>来调用这个函数，必须使用<code>package.aa.bb()</code>来调用，这一点大家应该都能想明白，因为<code>python</code>在当前文件夹下只能检测到有<code>aa.py</code>这个文件，但是不可能再去查看<code>aa.py</code>里面有没有这个函数，如果挨个检测的话稍微大一点的包就要费好长时间，而且内存占用也会很多。</p>
+<p>&emsp;<strong>那么如果在这个包中具有一个子包呢</strong>，这个时候子包就是个文件夹,<code>python</code>这里的源码我没有看,但通过猜想以及实验通常应该是在<code>import</code>一个包后只查找<code>.py</code>文件,例如我们的目录是这样的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--package</span><br><span class="line">  -aa.py</span><br><span class="line">  -sonPackage</span><br><span class="line">    __init__.py</span><br><span class="line">    -cc.py</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;这个时候如果你只是使用了<code>import package</code>这个时候如果想要调用<code>cc.py</code>的fun函数直接使用<code>package.sonPackage.cc.fun()</code>是会报错的，报错内容是找不到<code>sonPackage</code>这里是由于sonPackage是一个文件夹，并不是<code>.py</code>文件，所以编译器并没有把它引入到命名空间里。</p>
+<p>&emsp;但是这样的话要怎么使用<code>cc.py</code>呢，这里有两种方式，一个是使用<code>import package.sonPackage</code>,还有一个是使用<code>from package import sonPackage</code>,这两种方式都可以让程序运行的时候把包里面的东西引入到命名空间。</p>
+<p>&emsp;但是有一些库用的比较少童鞋或者一直跟着大佬代码导包的童鞋就有一些问题，为啥我看好多包直接就能用啊，根本没写过这么一大推，这个问题的秘密就在于<code>__init__.py</code>这个东西了，当你进行导包的时候首先python就会去执行<code>__init__().py</code>,很多包都是在<code>__init__.py</code>中把常用的函数或者子包预先导入来方便使用的，这样就会出现我们可以直接使用子包和函数的情况，比如目前我在用的sklearn中其中一个子包的<strong>init</strong>.py中是这么预先导入的:<br><img src="/images/pythonImport.png" alt="code"><br>&emsp;可以看到在其中已经导入了一些子包或者函数之类的东西，在这里是sklearn文件夹中的样子<br><img src="/images/pythonImport2.png" alt="code"><br>&emsp;所以这也就是为什么在导入一些包的时候我们可以直接使用其不同文件中的函数</p>
+<p>&emsp;当然，在引用子包的时候子包中的<code>__init__.py</code>引入了相应的函数才能直接使用，不然你还是要通过其中模块来使用函数，这里是sklearn一个子包中的<code>__init__.py</code>,这里显示了它把函数都已经提前导入了。<br><img src="/images/pythonImport3.png" alt="code"></p>
+<p>&emsp;可能有人注意到了第一张图有一个名称为<code>__all__</code>的个列表，这个东西是用来定义当你<code>from package import*</code>时提供的模块和子包，如果没有这个变量当你<code>from package import *</code>只会自动导入<strong>当前一级目录下的模块，子包是不会导入的</strong></p>
+<p>&emsp;由于<code>__init__.py</code>在导包时就会执行，里面你也可以放一些花里胡哨的函数来直接用，但是就会很乱ヽ(ー_ー)ノ。</p>
+<p><strong>知识引用来自于知乎大佬<a href="https://zhuanlan.zhihu.com/p/30836117" target="_blank" rel="noopener">模块&amp;包—import时发生的那些事</a></strong><br>以及来自大佬博客的<a href="https://www.rottentomatoes.com/browse/dvd-streaming-all?minTomato=0&maxTomato=100&services=amazon;hbo_go;itunes;netflix_iw;vudu;amazon_prime;fandango_now&genres=1;2;4;5;6;8;9;10;11;13;18;14&sortBy=release" target="_blank" rel="noopener">Python导入系统中粗心的陷阱</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='c66051f15410cdf0ce12'
+        data-cs='7c5b8d4d8ea788a71288c1fef80b600b25004f5b'
+        data-r='code-killerr.github.io'
+        data-o='code-killerr'
+        data-a='code-killerr'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
