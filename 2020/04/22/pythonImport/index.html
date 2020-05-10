@@ -79,7 +79,7 @@
 <p>&emsp;当然，在引用子包的时候子包中的<code>__init__.py</code>引入了相应的函数才能直接使用，不然你还是要通过其中模块来使用函数，这里是sklearn一个子包中的<code>__init__.py</code>,这里显示了它把函数都已经提前导入了。<br><img src="/images/pythonImport3.png" alt="code"></p>
 <p>&emsp;可能有人注意到了第一张图有一个名称为<code>__all__</code>的个列表，这个东西是用来定义当你<code>from package import*</code>时提供的模块和子包，如果没有这个变量当你<code>from package import *</code>只会自动导入<strong>当前一级目录下的模块，子包是不会导入的</strong></p>
 <p>&emsp;由于<code>__init__.py</code>在导包时就会执行，里面你也可以放一些花里胡哨的函数来直接用，但是就会很乱ヽ(ー_ー)ノ。</p>
-<p><strong>知识引用来自于知乎大佬<a href="https://zhuanlan.zhihu.com/p/30836117" target="_blank" rel="noopener">模块&amp;包—import时发生的那些事</a></strong><br>以及来自大佬博客的<a href="https://www.rottentomatoes.com/browse/dvd-streaming-all?minTomato=0&maxTomato=100&services=amazon;hbo_go;itunes;netflix_iw;vudu;amazon_prime;fandango_now&genres=1;2;4;5;6;8;9;10;11;13;18;14&sortBy=release" target="_blank" rel="noopener">Python导入系统中粗心的陷阱</a></p>
+<p><strong>知识引用来自于知乎大佬<a href="https://zhuanlan.zhihu.com/p/30836117" target="_blank" rel="noopener">模块&amp;包—import时发生的那些事</a></strong><br>以及来自大佬博客的<a href="http://python-notes.curiousefficiency.org/en/latest/python_concepts/import_traps.html" target="_blank" rel="noopener">Python导入系统中粗心的陷阱</a></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
