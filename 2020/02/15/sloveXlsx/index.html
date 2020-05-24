@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>数据处理之xlsx文件探秘 - CK-代码之道</title>
+    <title>数据处理之xlsx文件探秘(简单解析) - CK-代码之道</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
@@ -36,7 +36,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="icon-home image-icon" href="javascript:;" data-url="https://code-killerr.github.io"></a>
     <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">数据处理之xlsx文件探秘</h3>
+    <h3 class="subtitle">数据处理之xlsx文件探秘(简单解析)</h3>
     <div class="social">
         <!--<div class="like-icon">-->
             <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -54,7 +54,7 @@
     <div class="section">
         <div class="article">
     <div class='main'>
-        <h1 class="title">数据处理之xlsx文件探秘</h1>
+        <h1 class="title">数据处理之xlsx文件探秘(简单解析)</h1>
         <div class="stuff">
             <span>二月 15, 2020</span>
             
@@ -85,7 +85,7 @@
 <p>这里颜色分布的问题在写了一堆if判断之后搞定了，但是另一个问题出现了，这里的标签顺序是不一致的，研究了一下这里面的顺序是按照修改顺序来进行排序的，于是直接使用<code>openpyxl</code>将所有<code>cell</code>里无关紧要的信息改了一下。</p>
 <p>但是神奇的事情出现了，虽然改了数据，但是个别数据的顺序并没有变，因为更新的数据会放到文件底部，那些个别数据就像大海中的礁石一样岿然不动的被推到了最前面，这就把人整懵了。</p>
 <p>无奈之下，那咱也别试了，直接看xlsx文档研究数据结构，整体框架搞明白了什么就都好说了，这里是我从微软的文档里面扣出来的表格数据和xml文件对应图</p>
-<p><img src="/images/xlsxDate_xml.png" alt></p>
+<p><img src="/images/xlsxDate_xml.png" alt><br>这是一张很厉害的图。详细标明了各个<code>xml</code>文件之间是如何联系的</p>
 <p>这下一目了然了，既然取巧取不了，那就刚正面，面对疾风吧，骚年！</p>
 <h1 id="3-xlsx文件结构解析"><a href="#3-xlsx文件结构解析" class="headerlink" title="3.xlsx文件结构解析"></a>3.xlsx文件结构解析</h1><p>在这里面主要涉及到了<code>xl</code>文件夹下的多个xml文件，多个xml文件拼接成了完整的excle表格，就是图里面没有标出来对应的xml文件蛤，我解释一下这些东西吧。</p>
 <p>这些缝合怪分别为: <code>sharedStrings.xml,styles.xml,workbook.xml</code>，<code>worksheets</code>中包含的以以每个<code>sheet</code>名称命名的<code>xml</code>，预设样式<code>theme</code>文件夹下设定的<code>xml</code>文件</p>
@@ -96,6 +96,8 @@
 <p>这里展示的是一个<code>cell</code>的结构,这个一个<code>&lt;si&gt;</code>就是一个<code>cell</code>，一个<code>&lt;r&gt;</code>就是一种样式，第一个<code>&lt;r&gt;</code>标签中除了装有数据内容的<code>&lt;t&gt;</code>标签以外就什么都没有了，这种情况就是这些字使用的样式为<code>cell</code>的样式</p>
 <p>剩下的两个<code>&lt;r&gt;</code>标签代表了其中的字使用的自定义样式，在<code>&lt;rPr&gt;</code>标签中表明了其所拥有的样式，我一开始就是在读这里面的颜色样式来进行比对，这些就是同一个<code>cell</code>中不同样式文字的展现逻辑。</p>
 <p>这也是为什么把所有<code>cell</code>的样式都改过之后仍然会有数据的顺序不会被改变，因为这些数据采用的是<code>cell</code>的样式，并没有在<code>sharedStrings.xml</code>中更改，所以就算更改了数据样式，其在<code>xml</code>文件中的顺序也不会改变。</p>
+<p>ps:最近发现有的时候并不会出现<code>sharedStrings.xml</code>,数据好像存在了<code>sheet</code>文件夹里面了，猜测有可能是当文件只有一个<code>sheet</code>的时候并不会出现<code>sharedSing.xml</code>,毕竟<code>sharedString</code>有共享字符串的意思，这个只是猜测吧，毕竟没有<code>sharedStrings.xml</code>的表就最近见到了一次，太忙了并没有研究。</p>
+<h3 id="style-xml"><a href="#style-xml" class="headerlink" title="style.xml"></a>style.xml</h3><p>顾名思义，这里面存储的就是样式信息了，在excle里面有很多用来节省空间的结构和搜寻时间的结构和算法，非常多的东西是公共的，应该有使用哈希表进行搜索，格式刷的功能也许就是这么来的，直接更改<code>style</code>对应的文本位置就可以实现格式刷的功能了。</p>
 <p><img src="/images/solveXlsx3.jpg" alt></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
