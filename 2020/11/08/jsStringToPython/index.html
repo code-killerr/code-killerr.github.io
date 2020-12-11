@@ -67,12 +67,12 @@
 <p>本来是很正常的一件事，但是由于使用该数据时用的是python，天坑就出现了。</p>
 <h3 id="怎么都对不齐的词"><a href="#怎么都对不齐的词" class="headerlink" title="怎么都对不齐的词"></a>怎么都对不齐的词</h3><p>正常的拿到数据，然后开始通过下标来获取标记的词以及其标签进行训练时发现，诶，这数据里面的词怎么都不对劲，是不是标注给标错了。</p>
 <p>再仔细看了一下发现里面的词好像是错位了，有的字符串中的词错了一位，有的错了两位，好像里面有特殊字符诶，是不是这玩意搞的事情,于是打开chrome来试一试发生了什么，下面分别是javascript和python中emoji的长度对比。</p>
-<p><img src="/images/js_python_string1.jpg" alt>)<img src="/images/js_python_string2.jpg" alt></p>
+<p><img src="/images/js_python_string1.jpg" alt>)<img src="/images/js_python_string2.png" alt></p>
 <p>这是在搞什么诶，于是想了想，既然在js里面长度是2，python里面是1，能不能用re来搞这个呢，用re匹配到emoji来对下标进行减1处理，使索引正常<br>找了半天找到了匹配emoji的方法</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">u"[\U0001F300-\U0001F64F\U0001F680-\U0001F6FF\u2600-\u2B55]"</span>)</span><br><span class="line">emojiList = re.findall(emojiPattern, word[<span class="number">0</span>:start])</span><br></pre></td></tr></table></figure>
 
 <p>试了一下，emmmm好像还行，但是还有一些数据没有匹配上，再看看什么情况<br>啊这…..emoji表情果然不止有长度是2的</p>
-<p><img src="/images/js_python_string3.jpg" alt></p>
+<p><img src="/images/js_python_string3.png" alt></p>
 <h3 id="把python变成js的样子"><a href="#把python变成js的样子" class="headerlink" title="把python变成js的样子"></a>把python变成js的样子</h3><p>这没救了啊，算了，re这种方法本身就是治标不治本的，既然js里面解析的长度和python不一致，干脆直接用js解析一遍长度，再用python的长度比较一下来计算出差值进行匹配。<br>引入python和js联动的库，开始搞事情</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> execjs</span><br><span class="line">ctx = execjs.compile(<span class="string">"""</span></span><br><span class="line"><span class="string">     function len(x) &#123;</span></span><br><span class="line"><span class="string">         return x.length;</span></span><br><span class="line"><span class="string">     &#125;</span></span><br><span class="line"><span class="string">"""</span>)</span><br></pre></td></tr></table></figure>
 
@@ -81,7 +81,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">start = len(text.encode(<span class="string">'utf-8'</span>)[:start*<span class="number">2</span>].decode(<span class="string">'utf-8'</span>))</span><br></pre></td></tr></table></figure>
 
 <p>这样，我们就取到了正确的长度，python和js获取字符串长度采用的方式并不一样，所以导致了相同字符串统计出来的下标不一样，js统计长度的编码使用的是utf-16,而python使用的utf-32,自然二者对这特殊字符有着不一样的长度，utf-16对字符的容纳程度是2，也就是两个字节，utf-8容纳程度是1也就是一个字节，utf-32是4也就是4个字节，对于不到4个字节长度也就是8bit的字符统一计算为1，而utf-16是对不到2个字节长度也就是16bit的字符统一计算为1，所以当😈这样的字符出现时，对于utf-16来说它有3个字节，超出了2个字节的限制，所以统一计算为两个字符，而对于utf-32来说，它并没有到达4个字节的限制，所以计算为1个字符。</p>
-<h3 id="效果如下图所示，注意，u-16有2个字节的前缀，utf-32有4个字节的前缀，减去才是字符在该编码下的正确长度"><a href="#效果如下图所示，注意，u-16有2个字节的前缀，utf-32有4个字节的前缀，减去才是字符在该编码下的正确长度" class="headerlink" title="效果如下图所示，注意，u-16有2个字节的前缀，utf-32有4个字节的前缀，减去才是字符在该编码下的正确长度"></a>效果如下图所示，注意，u-16有2个字节的前缀，utf-32有4个字节的前缀，减去才是字符在该编码下的正确长度</h3><p><img src="/images/js_python_string4.jpg" alt></p>
+<h3 id="效果如下图所示，注意，u-16有2个字节的前缀，utf-32有4个字节的前缀，减去才是字符在该编码下的正确长度"><a href="#效果如下图所示，注意，u-16有2个字节的前缀，utf-32有4个字节的前缀，减去才是字符在该编码下的正确长度" class="headerlink" title="效果如下图所示，注意，u-16有2个字节的前缀，utf-32有4个字节的前缀，减去才是字符在该编码下的正确长度"></a>效果如下图所示，注意，u-16有2个字节的前缀，utf-32有4个字节的前缀，减去才是字符在该编码下的正确长度</h3><p><img src="/images/js_python_string4.png" alt></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
