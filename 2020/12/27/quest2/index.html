@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>quest2免路由激活(热点挂载VPN)以及无线串流操控电脑踩坑 - CK-代码之道</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="CodeKiller,"> 
+    <meta name="description" content="最近安排了Quest2,但期间真的有很多问题，趟了很多坑，同时也get到了很多东西，在此分享记录一下，以备不时之需
+电脑挂载vpn选择首先查看自己挂的梯子存不存在TAP_Windows Adapte,"> 
+    <meta name="author" content="Code Killer"> 
+    <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">CK-代码之道</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://blog.ck-tu.top"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">quest2免路由激活(热点挂载VPN)以及无线串流操控电脑踩坑</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">quest2免路由激活(热点挂载VPN)以及无线串流操控电脑踩坑</h1>
+        <div class="stuff">
+            <span>十二月 27, 2020</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Oculus/">Oculus</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/hotspot/">hotspot</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/quest2/">quest2</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p><font size="5">最近安排了Quest2,但期间真的有很多问题，趟了很多坑，同时也get到了很多东西，在此分享记录一下，以备不时之需</font></p>
+<h2 id="电脑挂载vpn选择"><a href="#电脑挂载vpn选择" class="headerlink" title="电脑挂载vpn选择"></a>电脑挂载vpn选择</h2><p><font size="4">首先查看自己挂的梯子存不存在TAP_Windows Adapter类似的链接</font></p>
+<p><img src="/images/quest2_img1.png" alt></p>
+<p><font size="4">如果没有，恭喜你进入了第一个坑，这里我们就需要更换相应的魔法客户端了一般来说小飞机，sstap,v2ray等都会有</font></p>
+<h4 id="当然，也有另一种情况，就是你是直接买的现成的vpn，不需要用结点，随开随用的那种，这种的话就有点难受了"><a href="#当然，也有另一种情况，就是你是直接买的现成的vpn，不需要用结点，随开随用的那种，这种的话就有点难受了" class="headerlink" title="当然，也有另一种情况，就是你是直接买的现成的vpn，不需要用结点，随开随用的那种，这种的话就有点难受了"></a>当然，也有另一种情况，就是你是直接买的现成的vpn，不需要用结点，随开随用的那种，这种的话就有点难受了</h4><p><font size="4">首先你可以先查看你的魔法方式有没有相应的结点信息，例如</font><br><font size="4"><br>这种的<br><img src="/images/quest2_img2.png" alt><br>或者这样的<br><img src="/images/quest2_img2.png" alt></font></p>
+
+<font size="4">
+类似的信息，如果找到了，看一下前缀是ss,还是ssr,或者是ssrt，根据这个前缀去找对应的其它客户端就好了^.^
+
+<p>但是如果没有找到，那就可能是被封装掉了，只能找一找结点了。<br>本篇并不推荐魔法(怕被拉去喝茶)(；´д｀)ゞ，这就需要自己寻找了<br></p></font><p></p>
+<h2 id="分享热点"><a href="#分享热点" class="headerlink" title="分享热点"></a>分享热点</h2><font size="4">
+先打开热点共享，打开之后我们就能在网络连接中看到我们的热点了
+
+<p><img src="/images/quest2_img6.png" alt></p>
+<p>这里我们在TAP_Windows Adapter中右键选择属性</p>
+<p><img src="/images/quest2_img4.png" alt></p>
+<p>找到共享，选中允许其他网络用户通过此计算机连接，跳出来窗口点确定之类的就行，网络连接选择开启热点后的连接，应该会有后缀*</p>
+<p><img src="/images/quest2_img5.png" alt></p>
+<p>用手机或者平板之类的链接热点，试一下能不能魔法上网</p>
+<p>如果不行的话，我们就要挂一下代理了，在这里</p>
+<p><img src="/images/quest2_img7.png" alt></p>
+<p>设置开启代理服务器，地址按照图中即可，端口自己设置没有被占用的就行</p>
+<p>在手机或者quest2上设置代理,</p>
+<p>代理在wifi中选中相应wifi即可设置，选择手动</p>
+<p><img src="/images/quest2_img9.jpg" alt></p>
+<p>填写代理信息，IP填写热点的ip地址即可，端口号输入电脑中设置的端口号</p>
+<p><img src="/images/quest2_img8.jpg" alt></p>
+<p>热点的ip地址选中热点链接，右键点击状态-详细信息，即可查看</p>
+<p><img src="/images/quest2_img10.png" alt></p>
+<p>这下应该就可以连接到魔法了，使用小飞机测试可以使用。sstap不需要代理即可使用</p>
+<p>如果还是连不上，嫌麻烦，最傻瓜的方式是下一个connectify<br><a href="https://www.connectify.me/zh-hans/" target="_blank" rel="noopener">官网链接</a></p>
+<p>打开之后是有免费版，免费版支持一次共享一小时，之后会断掉需要重开</p>
+<p><img src="/images/quest2_img11.png" alt></p>
+<p>选择之前的TAP_Windows Adapter直接启动热点就可以了<br></p></font><p></p>
+<h3 id="注意很重要的一点-激活quest2需要开启udp转发"><a href="#注意很重要的一点-激活quest2需要开启udp转发" class="headerlink" title="注意很重要的一点,激活quest2需要开启udp转发"></a><font color="red">注意很重要的一点,激活quest2需要开启udp转发</font></h3><font size="4">
+quest2很容易被墙的dns污染，所以需要使用udp转发dns。
+
+<p>众所周知，网络请求= DNS域名解析 + TCP 连接建立 + HTTP数据传输</p>
+<p>如果没有DNS解析就无法获得相应网站的ip,更不要说建立连接了，可以使用sstap以及v2ray,小飞机也是有的，不过电脑端没找到怎么设置</p>
+<p>当然，如果下载软件到我们的quest2也是需要有udp转发的。</p>
+<p>好了，大功告成，我们可以去激活我们的quest2了。ψ(*｀ー´)ψ<br></p></font><p></p>
+<h2 id="账号的坑"><a href="#账号的坑" class="headerlink" title="账号的坑"></a>账号的坑</h2><font size="4">
+facebook账号是个很让人恼火的东西，所以在用facebook账号注册时你需要，尽量使用真名，登录facebook的时候尽量使用一个固定位置结点。
+
+<p>如果经常换节点，facebook会把你封锁掉，操作不当的情况下，解锁是需要身份证的，尼玛给你身份证你用啥给我验证，合着收集身份证呢，可把我恶心坏了<br></p></font><p></p>
+<h2 id="免费无线串流电脑"><a href="#免费无线串流电脑" class="headerlink" title="免费无线串流电脑"></a>免费无线串流电脑</h2><h3 id="注意，本方法无法连接steamvr-只是可以操作电脑以及将电脑投屏到quest2"><a href="#注意，本方法无法连接steamvr-只是可以操作电脑以及将电脑投屏到quest2" class="headerlink" title="注意，本方法无法连接steamvr,只是可以操作电脑以及将电脑投屏到quest2 "></a><font color="red">注意，本方法无法连接steamvr,只是可以操作电脑以及将电脑投屏到quest2 </font></h3><font size="4">
+首先打开我们oculus商店，搜索Immersed，这个是一个免费办公串流软件，可以将电脑串流至quest2,目测底层和vd差不多
+
+<p>打开后应该是下面这个样子</p>
+<p><img src="/images/quest2_img12.png" alt></p>
+<p>然后电脑进入Immersed<a href="https://immersedvr.com" target="_blank" rel="noopener">官网</a>，输入quest2上的账号邮箱以及代码，下载pc端</p>
+<p>打开之后应该是下面的样子</p>
+<p><img src="/images/quest2_img13.png" alt></p>
+<p>关闭电脑和<b>quest2</b>上的所有魔法vpn,以及vpn,确认电脑和quest2连在一个wifi上</p>
+<p>输入quest2中的代码就可以串流到我们的电脑了，相当于多了好多显示屏呢，因为immersed支持无显示屏分屏</p>
+<p>今天你学废了吗(⊙_⊙)?</p>
+<p><img src="/images/quest2_img14.png" alt></p>
+<font size="4">
+
+
+
+
+
+</font></font>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='c66051f15410cdf0ce12'
+        data-cs='7c5b8d4d8ea788a71288c1fef80b600b25004f5b'
+        data-r='code-killerr.github.io'
+        data-o='code-killerr'
+        data-a='code-killerr'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#电脑挂载vpn选择"><span class="toc-number">1.</span> <span class="toc-text">电脑挂载vpn选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#当然，也有另一种情况，就是你是直接买的现成的vpn，不需要用结点，随开随用的那种，这种的话就有点难受了"><span class="toc-number">1.0.1.</span> <span class="toc-text">当然，也有另一种情况，就是你是直接买的现成的vpn，不需要用结点，随开随用的那种，这种的话就有点难受了</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分享热点"><span class="toc-number">2.</span> <span class="toc-text">分享热点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注意很重要的一点-激活quest2需要开启udp转发"><span class="toc-number">2.1.</span> <span class="toc-text">注意很重要的一点,激活quest2需要开启udp转发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#账号的坑"><span class="toc-number">3.</span> <span class="toc-text">账号的坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#免费无线串流电脑"><span class="toc-number">4.</span> <span class="toc-text">免费无线串流电脑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注意，本方法无法连接steamvr-只是可以操作电脑以及将电脑投屏到quest2"><span class="toc-number">4.1.</span> <span class="toc-text">注意，本方法无法连接steamvr,只是可以操作电脑以及将电脑投屏到quest2 </span></a></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
