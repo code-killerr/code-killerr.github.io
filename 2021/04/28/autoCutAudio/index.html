@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>自动切分音频(wav文件分离有效声音) - CK-代码之道</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="CodeKiller,"> 
+    <meta name="description" content="音频太长，音频太多，想把里面人声截取出来调整顺序或者作为素材都可以用这个脚本来实现，脚本的制作主要是因为有场景需要分割出音频中的人声。
+背景噪音越小，幅度越平稳切割效果越好。当然有底噪也不怕，脚本自,"> 
+    <meta name="author" content="Code Killer"> 
+    <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">CK-代码之道</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://blog.ck-tu.top"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">自动切分音频(wav文件分离有效声音)</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">自动切分音频(wav文件分离有效声音)</h1>
+        <div class="stuff">
+            <span>四月 28, 2021</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Audio/">Audio</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Python/">Python</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Wav/">Wav</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>音频太长，音频太多，想把里面人声截取出来调整顺序或者作为素材都可以用这个脚本来实现，脚本的制作主要是因为有场景需要分割出音频中的人声。</p>
+<p>背景噪音越小，幅度越平稳切割效果越好。当然有底噪也不怕，脚本自带识别逻辑，甚至还可以手动调参来进行调整。</p>
+<h2 id="1-导入auto-cut-audio"><a href="#1-导入auto-cut-audio" class="headerlink" title="1.导入auto_cut_audio"></a>1.导入auto_cut_audio</h2><p>通过<code>git</code>下载或者<code>clone</code>到本地使用<code>setup.py</code>安装即可。</p>
+<p><a href="https://github.com/code-killerr/Auto_Cut_Audio" target="_blank" rel="noopener">https://github.com/code-killerr/Auto_Cut_Audio</a></p>
+<p>下载完成后，在命令行中进行安装。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-导入auto-cut-audio"><a href="#2-导入auto-cut-audio" class="headerlink" title="2.导入auto_cut_audio"></a>2.导入auto_cut_audio</h2><p>安装完成后可以直接导入<code>auto_cut_audio</code>,<code>auto_cut_audio</code>可以直接使用预设的函数轻松调用，或者直接使用<code>HandleAudio</code>调用类来解锁更多玩法。</p>
+<h2 id="3-准备完成，开始搞事！"><a href="#3-准备完成，开始搞事！" class="headerlink" title="3.准备完成，开始搞事！"></a>3.准备完成，开始搞事！</h2><h3 id="1-音频切割"><a href="#1-音频切割" class="headerlink" title="(1) 音频切割"></a>(1) 音频切割</h3><p><b>静音段是指在两段声音之间存在的相对平静且音量较低的空隙。</b></p>
+<p>切割将根据音频的静音段进行切割，在说话的间隙进行切割，如果静音段过长将自动切出静音时段，也可以设定是否保留,去除或者合并等。</p>
+<p>切割完成的音频可以保留在本地。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> auto_cut_audio</span><br><span class="line"><span class="comment"># 保留切割音频</span></span><br><span class="line">auto_cut_audio.auto_cut_audio(<span class="string">r'audio path'</span>,saveFolder=<span class="string">r'save folder'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>也可以不保留切割的音频。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> auto_cut_audio</span><br><span class="line"><span class="comment"># 保存切割音频信息</span></span><br><span class="line">cut_time = auto_cut_audio.auto_cut_audio(<span class="string">r'audio path'</span>)</span><br><span class="line">print(cut_time)</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用HandleAudio类来进行更多操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> auto_cut_audio</span><br><span class="line">audio = auto_cut_audio.HandleAudio(<span class="string">r'audio_path'</span>)</span><br><span class="line">audio.autoSplitAudio()</span><br></pre></td></tr></table></figure>
+
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='c66051f15410cdf0ce12'
+        data-cs='7c5b8d4d8ea788a71288c1fef80b600b25004f5b'
+        data-r='code-killerr.github.io'
+        data-o='code-killerr'
+        data-a='code-killerr'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-导入auto-cut-audio"><span class="toc-number">1.</span> <span class="toc-text">1.导入auto_cut_audio</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-导入auto-cut-audio"><span class="toc-number">2.</span> <span class="toc-text">2.导入auto_cut_audio</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-准备完成，开始搞事！"><span class="toc-number">3.</span> <span class="toc-text">3.准备完成，开始搞事！</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-音频切割"><span class="toc-number">3.1.</span> <span class="toc-text">(1) 音频切割</span></a></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
