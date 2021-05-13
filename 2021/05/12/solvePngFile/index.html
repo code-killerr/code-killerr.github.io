@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Png文件压缩浅析 - CK-代码之道</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="CodeKiller,"> 
+    <meta name="description" content="最近在写一些安卓的项目，但是需要对一些png文件进行压缩，但是tinyPng需要付费，以及调用api速度和便捷性并没有本地压缩快，所以来瞅瞅有没有合适的，虽然最后还是没有很好的方案，但还是增长了自己,"> 
+    <meta name="author" content="Code Killer"> 
+    <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">CK-代码之道</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://blog.ck-tu.top"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Png文件压缩浅析</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Png文件压缩浅析</h1>
+        <div class="stuff">
+            <span>五月 12, 2021</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Android/">Android</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Png/">Png</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>最近在写一些安卓的项目，但是需要对一些png文件进行压缩，但是tinyPng需要付费，以及调用api速度和便捷性并没有本地压缩快，所以来瞅瞅有没有合适的，虽然最后还是没有很好的方案，但还是增长了自己的见识。</p>
+<p><b>首先感谢掘金大佬的文章，非常的详细，受益匪浅<a href="https://juejin.cn/post/6844904013557661709" target="_blank" rel="noopener">https://juejin.cn/post/6844904013557661709</a></b></p>
+<h3 id="1-png文件解析"><a href="#1-png文件解析" class="headerlink" title="1.png文件解析"></a>1.png文件解析</h3><p>众所周知PNG是一种无损的图像存储格式，比jpg的图像多存储了很多数据，比如透明度。当然知道只知道这些并不够。</p>
+<p>兵欲善其事，必先利其器。要压缩Png我们首先要弄清楚png里面究竟是怎么回事，二进制文件通常主要有两部分，文件信息部分和文件数据部分，文件信息部分包含了png文件的各种信息，比如图片大小，颜色类型，位深度等信息。</p>
+<p>信息数据包含的信息数据，这里可以看一下(png文件格式规范)[<a href="http://www.libpng.org/pub/png/spec/1.2/PNG-Chunks.html],这里面对png中存在的chunk都有很详细的说明解释，有精力的话还可以看看(png白皮书)[https://www.w3.org/TR/2003/REC-PNG-20031110/]。" target="_blank" rel="noopener">http://www.libpng.org/pub/png/spec/1.2/PNG-Chunks.html],这里面对png中存在的chunk都有很详细的说明解释，有精力的话还可以看看(png白皮书)[https://www.w3.org/TR/2003/REC-PNG-20031110/]。</a></p>
+<h3 id="2-文件压缩解析"><a href="#2-文件压缩解析" class="headerlink" title="2.文件压缩解析"></a>2.文件压缩解析</h3><p>一般来说文件压缩有几种方式，一个是调色板，通过固定的颜色进行压缩，一个是颜色量化，合并相似颜色，还有清除多余信息同样可以减少png文件的大小。</p>
+<h4 id="调色板"><a href="#调色板" class="headerlink" title="调色板"></a>调色板</h4><p>这个是png本身存在的一种存储方式，png颜色存储有6种颜色存储类型，在IHDR块中第10个字节位置存储，有六种颜色类型，分别为01-06。调色板模式为03，由于存储仅为1个字节，所以调色板模式下只能存储00-FF也就是256种颜色，所以这种压缩方式属于有损压缩，压缩的质量取决于我们的颜色量化算法，量化算法越好，那么我们的图像质量也就越好。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='c66051f15410cdf0ce12'
+        data-cs='7c5b8d4d8ea788a71288c1fef80b600b25004f5b'
+        data-r='code-killerr.github.io'
+        data-o='code-killerr'
+        data-a='code-killerr'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-png文件解析"><span class="toc-number">1.</span> <span class="toc-text">1.png文件解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-文件压缩解析"><span class="toc-number">2.</span> <span class="toc-text">2.文件压缩解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#调色板"><span class="toc-number">2.1.</span> <span class="toc-text">调色板</span></a></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
