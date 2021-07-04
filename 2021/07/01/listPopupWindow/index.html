@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ListPopupWindow(PopupWindow)屏幕自适应无法取消解决方案 - CK-代码之道</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="CodeKiller,"> 
+    <meta name="description" content="最近在解决一个需求，要求在输入框下面弹出一个下拉框，一个并不很难的需求，但是在适配的时候出现了问题。
+
+技术选取这里选取了ListPopupWindow,后面大佬都说这个比较坑，但是再坑也要比我这种,"> 
+    <meta name="author" content="Code Killer"> 
+    <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">CK-代码之道</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://blog.ck-tu.top"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">ListPopupWindow(PopupWindow)屏幕自适应无法取消解决方案</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">ListPopupWindow(PopupWindow)屏幕自适应无法取消解决方案</h1>
+        <div class="stuff">
+            <span>七月 01, 2021</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Android/">Android</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/ListPopupWindow/">ListPopupWindow</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/PopupWindow/">PopupWindow</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>最近在解决一个需求，要求在输入框下面弹出一个下拉框，一个并不很难的需求，但是在适配的时候出现了问题。</p>
+<p><img src="/images/meme/-657807745b263120.jpg" alt></p>
+<h3 id="技术选取"><a href="#技术选取" class="headerlink" title="技术选取"></a>技术选取</h3><p>这里选取了ListPopupWindow,后面大佬都说这个比较坑，但是再坑也要比我这种小菜鸡写的好吧，大不了填坑嘛。</p>
+<p>实现很简单，new一个ListPopupWindow，做一些初始化设置，然后塞一个ArrayAdapter塞些数据就完事了，当我以为这一切都被我轻松搞定之后测试就来了(⊙_⊙)?</p>
+<h3 id="坑出现了"><a href="#坑出现了" class="headerlink" title="坑出现了"></a>坑出现了</h3><p>刚才测试问我发生甚么事了，我说怎么回事，他给我发了几张截图，我一看！嗷！原来是弹出来下拉框把输入框挡住了，debug跟一下看看是什么情况，结果是这个ListPopupWindow不讲武德自适应调整了位置，我想随便找一下参数设置把这个自适应关掉，没想到它还不是随便能关掉的，愣是找不到关闭这个自适应的参数，好家伙，这只能啃源码了啊。</p>
+<p><img src="/images/meme/5ade912b608f1d3fa1ede998836f9d39.jpg" alt></p>
+<h3 id="代码排查"><a href="#代码排查" class="headerlink" title="代码排查"></a>代码排查</h3><p>经过排查发现自适应页面的功能在<code>popupWindow</code>里面，它在进行展示的时候执行了，大家了解<code>PopupWindow</code>的话就会知道我们可以通过<code>showAsDropDown</code>来展示悬浮窗口，<code>listPopupWindow</code>也是这样调用的，自适应的代码就是在执行<code>showAsDropDown</code>的时候进行自适应的。</p>
+<p>在下面的代码片段中<code>popupWindow</code>开始寻找锚点控件的坐标来确定弹出窗口的坐标位置，自适应的代码也是在这一步执行的。</p>
+<div style="text-align: center;color: grey;font-size: 14px;">
+    <img src="/images/popupWindow/pic1.png">
+    <span>寻找展示弹出窗口的绘制坐标</span>
+</div>
+<br>
+
+<p>我们再往下找，可以找到对坐标进行适应兼容的代码，分别对纵坐标和横坐标进行了自适应操作。</p>
+<div style="text-align: center;color: grey;font-size: 14px;">
+    <img src="/images/popupWindow/pic2.png">
+    <span>对坐标进行页面适配的代码位置</span>
+</div>
+<br>
+
+<p>但是这里还是没有到达遮挡我们控件代码的位置，在这里对<code>PopupWindow</code>的<code>mOverlapAnchor</code>参数，也就是是否遮挡锚点控件参数作用的地方，但是这里如果想要让这个参数起作用有一个限制条件。</p>
+<p>锚点控件周围的大小要能够包含我们的弹出窗口，这里是调整纵坐标位置的，所以当锚点控件上下区域的高度大于弹出窗口的高度时才会通过这个参数漏出我们的锚点控件，同时会判断弹出窗口应该在锚点控件的上面还是下面展示。</p>
+<p>如果当前可视区域的高度不够大要怎么办呢，这里就会执行<code>positionDisplayVertical</code>方法来对弹出窗口进行调整，在这里也可以找到我们的遮挡我们锚点控件的罪魁祸首。</p>
+<div style="text-align: center;color: grey;font-size: 14px;">
+    <img src="/images/popupWindow/pic3.png">
+    <span>弹出窗口空间适配方案代码</span>
+</div>
+<br>
+
+<p>在这里代码对弹出窗口的高度/宽度以及位置进行控制，这里我们看的主要是纵向适配的代码，所以这里就是对窗口高度和纵向位置进行控制的代码。</p>
+<p>这段代码中先判断了当前弹出窗口的底部是否被遮盖无法显示，如果被遮盖那么就会调整弹出窗口的高度，保证弹出窗口的底部不被遮盖。</p>
+<p>其次会开始判断弹出窗口的顶部是否被遮盖，如果被遮盖那么就会减少弹出窗口的高度，保证目前的窗口顶部不被覆盖。</p>
+<p>这样调整下来可以保证弹出窗口不被覆盖，在整个屏幕中展示，如果我只是需要一个选择框没有任何问题，但是如果我要在选择框里面进行输入的话就会很有问题了，它会遮住我的输入框。</p>
+<div style="text-align: center;color: grey;font-size: 14px;">
+    <img src="/images/popupWindow/pic4.png">
+    <span>遮挡锚点控件的代码</span>
+</div>
+<br>
+
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>我们已经知道究竟是谁在捣乱了，那么就要想一个办法让它不去挡住我们的锚点控件，首先，我们不可能调offset,因为这个已经在里面计算过了，那么我们好像可以调整高度，让弹出窗口的高度小于控件周围空间的高度那不就会让<code>mOverlapAnchor</code>参数生效了嘛，就不会被挡住了啊。</p>
+<p>所以我们就可以先一步计算我们的空余空间大小，然后调整ListPopupWindow或者popupWindow的高度，这样就可以在保证锚点控件暴露的同时无缝兼容了，经过查找<code>PopupWindow</code>会在<code>layout</code>变化的时候进行兼容，那么我们就需要在外面加一个布局变化监听，抢在<code>PopupWindow</code>前面先进行高度调整，抢<code>PopupWindow</code>的路，让它没办法搞事情。大概就是这个思路，具体代码已经实现，之后再会进行更新。</p>
+<p><img src="/images/meme/867862428576CC1A74F02898A287C95A552B28A95.jpg" alt></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='c66051f15410cdf0ce12'
+        data-cs='7c5b8d4d8ea788a71288c1fef80b600b25004f5b'
+        data-r='code-killerr.github.io'
+        data-o='code-killerr'
+        data-a='code-killerr'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#技术选取"><span class="toc-number">1.</span> <span class="toc-text">技术选取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#坑出现了"><span class="toc-number">2.</span> <span class="toc-text">坑出现了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码排查"><span class="toc-number">3.</span> <span class="toc-text">代码排查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案"><span class="toc-number">4.</span> <span class="toc-text">解决方案</span></a></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
