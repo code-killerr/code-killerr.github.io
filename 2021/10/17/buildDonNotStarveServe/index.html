@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>饥荒联机版(Don&#39;t Starve Together)搭建私服步骤整理 - CK-代码之道</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="CodeKiller,"> 
+    <meta name="description" content="看到腾讯云有在打折，正好阿里云要过期了，续费非常之贵，于是就买了一个轻量级的腾讯云服务器，三年150的样子吧，1c2g网速还比阿里云快1M的带宽hhhhhhh。
+但是用来干点啥还没想好，不过库里面的,"> 
+    <meta name="author" content="Code Killer"> 
+    <link rel="alternative" href="atom.xml" title="CK-代码之道" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">CK-代码之道</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://blog.ck-tu.top"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">饥荒联机版(Don't Starve Together)搭建私服步骤整理</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">饥荒联机版(Don't Starve Together)搭建私服步骤整理</h1>
+        <div class="stuff">
+            <span>十月 17, 2021</span>
+            
+  <ul class="post-tags-list"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Android/">Android</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Png/">Png</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>看到腾讯云有在打折，正好阿里云要过期了，续费非常之贵，于是就买了一个轻量级的腾讯云服务器，三年150的样子吧，1c2g网速还比阿里云快<b>1M</b>的带宽hhhhhhh。</p>
+<p>但是用来干点啥还没想好，不过库里面的饥荒吃灰许久，可以拿出来被虐一虐，那就搭一个饥荒服务器吧。</p>
+<p><b>这里参考了CSDN大佬的文章，非常详细<a href="https://blog.csdn.net/zhang41228/article/details/103106298" target="_blank" rel="noopener">https://blog.csdn.net/zhang41228/article/details/103106298</a></b></p>
+<h2 id="1-配置担忧"><a href="#1-配置担忧" class="headerlink" title="1.配置担忧"></a>1.配置担忧</h2><p>这个看你需求吧，反正我这边目前<b>1c2g</b>(即1核2G内存)的还够用，地图的尺寸是<b>大</b>,听说开地下的话内存会不太够用，所以我就开的小地下，搭好之后玩起来完全没啥问题，就是内存占用确实不低。</p>
+<div style="text-align: center;color: grey;font-size: 14px;">
+    <img src="/images/dontStarveTogether/pic1.png" alt="内存占用">
+    <span>可以看到打开服务之后内存从四百多飙到了将近1.6个G</span>
+</div>
+<br>
+
+<p>我这边服务器最大人数设定的是4个，具体能不能搞下来等我凑够人了先吧，不过两个人玩起来还是可以的。</p>
+<h2 id="2-买买买服务器！！！"><a href="#2-买买买服务器！！！" class="headerlink" title="2.买买买服务器！！！"></a>2.买买买服务器！！！</h2><p>(阿里云)[<a href="https://www.aliyun.com/minisite/goods?userCode=aoxio1km]" target="_blank" rel="noopener">https://www.aliyun.com/minisite/goods?userCode=aoxio1km]</a></p>
+<p>(百度云)[<a href="https://cloud.baidu.com/campaign/bccdiscount/index.html]" target="_blank" rel="noopener">https://cloud.baidu.com/campaign/bccdiscount/index.html]</a></p>
+<p>(腾讯云)[<a href="https://curl.qcloud.com/ExLYu2TZ]" target="_blank" rel="noopener">https://curl.qcloud.com/ExLYu2TZ]</a></p>
+<p>(华为云)[<a href="https://activity.huaweicloud.com/discount_area_v5/index.html]" target="_blank" rel="noopener">https://activity.huaweicloud.com/discount_area_v5/index.html]</a></p>
+<p>哪个便宜买哪个,买的时候服务器设置成centos7以上的linux系统即可并且在安全组中打开10999和10998端口，这俩分别运行的是饥荒地图的服务和饥荒地下的服务。</p>
+<p>以我目前的腾讯云为例直接进入控制台</p>
+<p>!()[/images/dontStarveTogether/pic2.png]</p>
+<p>找到图中的防火墙，也可能叫做安全组，添加规则，端口设置为10999和10998即可</p>
+<p>!()[/images/dontStarveTogether/pic3.png]</p>
+<h2 id="3-开始搞事情"><a href="#3-开始搞事情" class="headerlink" title="3.开始搞事情"></a>3.开始搞事情</h2><p>可以在网页控制台远程登录服务器开始操作，可能体验会比较不爽，或者直接用(xshell)[<a href="https://www.netsarang.com/zh/xshell/]怎么用自己查查就会了。" target="_blank" rel="noopener">https://www.netsarang.com/zh/xshell/]怎么用自己查查就会了。</a></p>
+<p>以下的步骤分别为</p>
+<h3 id="下载基础环境"><a href="#下载基础环境" class="headerlink" title="下载基础环境"></a>下载基础环境</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update	</span><br><span class="line"></span><br><span class="line">sudo yum -y install glibc.i686 libstdc++.i686 libcurl4-gnutls-dev.i686 libcurl.i686 screen</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装steam的命令行工具"><a href="#安装steam的命令行工具" class="headerlink" title="安装steam的命令行工具"></a>安装steam的命令行工具</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /home &amp;&amp; mkdir steamcmd &amp;&amp; cd steamcmd</span><br><span class="line"></span><br><span class="line">wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz</span><br><span class="line"></span><br><span class="line">tar -xvzf steamcmd_linux.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过steam命令行下载饥荒服务端，默认设置为-home-dstserver想换地方就换吧，我是懒得换了。"><a href="#通过steam命令行下载饥荒服务端，默认设置为-home-dstserver想换地方就换吧，我是懒得换了。" class="headerlink" title="通过steam命令行下载饥荒服务端，默认设置为/home/dstserver想换地方就换吧，我是懒得换了。"></a>通过steam命令行下载饥荒服务端，默认设置为<code>/home/dstserver</code>想换地方就换吧，我是懒得换了。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">./steamcmd/steamcmd.sh</span><br><span class="line"></span><br><span class="line">login anonymous</span><br><span class="line"></span><br><span class="line">force_install_dir /home/dstserver</span><br><span class="line"></span><br><span class="line">app_update 343050 validate</span><br></pre></td></tr></table></figure>
+
+<p>大佬说有个坑，但是我装的时候好像没有碰到，应该是修好了?</p>
+<p>踩坑的姿势要标准啊</p>
+<p>要是出现<code>libcurl-gnutls.so.4</code>类似的错误试试下面的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/lib/libcurl.so.4 /home/dstserver/bin/lib32/libcurl-gnutls.so.4</span><br></pre></td></tr></table></figure>
+
+<p>测试安装是否正常，出现YOUR Server Will Not Start就是正常了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /home/dstserver/bin</span><br><span class="line"></span><br><span class="line">echo &quot;./dontstarve_dedicated_server_nullrenderer -console -persistent_storage_root /home/dstsave -conf_dir dst -cluster World1 -shard Master&quot; &gt; master_start.sh</span><br><span class="line"></span><br><span class="line">echo &quot;./dontstarve_dedicated_server_nullrenderer -console -persistent_storage_root /home/dstsave -conf_dir dst -cluster World1 -shard Caves&quot; &gt; cave_start.sh</span><br><span class="line"></span><br><span class="line">chmod +x master_start.sh cave_start.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置服务端设置"><a href="#配置服务端设置" class="headerlink" title="配置服务端设置"></a>配置服务端设置</h3><p>打开你电脑上的饥荒</p>
+<p>新建一个多人房间，我这边设置的权限是公共，加密码，然后在上面设置好你要设置的东西，要加的mod，返回首页点击游戏数据即可，在里面前缀为Cluster的文件夹就是你生成的东西了</p>
+<h3 id="klei生成token用来注册服务器"><a href="#klei生成token用来注册服务器" class="headerlink" title="klei生成token用来注册服务器"></a>klei生成token用来注册服务器</h3><p>我们要来到(klei)[<a href="https://accounts.klei.com/login?goto=https://accounts.klei.com/account/game/list]去注册服务器，没有登饥荒的直接进网站用steam或者什么乱七八糟的东西登录" target="_blank" rel="noopener">https://accounts.klei.com/login?goto=https://accounts.klei.com/account/game/list]去注册服务器，没有登饥荒的直接进网站用steam或者什么乱七八糟的东西登录</a></p>
+<p>有开饥荒的在首页账户信息里面直接进去就行，具体操作可以康康这个(<a href="https://forums.kleientertainment.com/forums/topic/64441-dedicated-server-quick-setup-guide-linux/)[https://forums.kleientertainment.com/forums/topic/64441-dedicated-server-quick-setup-guide-linux/]" target="_blank" rel="noopener">https://forums.kleientertainment.com/forums/topic/64441-dedicated-server-quick-setup-guide-linux/)[https://forums.kleientertainment.com/forums/topic/64441-dedicated-server-quick-setup-guide-linux/]</a></p>
+<h3 id="配置服务器以及你的小mod"><a href="#配置服务器以及你的小mod" class="headerlink" title="配置服务器以及你的小mod"></a>配置服务器以及你的小mod</h3><p>快！！！把你生成的token直接塞到cluster_token.txt里面，保存。</p>
+<p>然后打开你的cacaves或者master文件夹，找到<code>modoverrides.lua</code>用记事本打开。</p>
+<p>在Cluster_1的目录里面新建一个记事本文件，名字叫做<code>dedicated_server_mods_setup.lua</code></p>
+<p>!()[/images/dontStarveTogether/pic4.png]</p>
+<p>把下面这玩意粘贴到刚才新建的记事本里面，把里面类似于<code>ServerModSetup(&quot;375850593&quot;)</code>东西里面的数字换成<code>modoverrides.lua</code>里面的mod编号，这样你的mod就可以被下载到了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">--There are two functions that will install mods, ServerModSetup and ServerModCollectionSetup. Put the calls to the functions in this file and they will be executed on boot.</span><br><span class="line"></span><br><span class="line">--ServerModSetup takes a string of a specific mod&apos;s Workshop id. It will download and install the mod to your mod directory on boot.</span><br><span class="line">    --The Workshop id can be found at the end of the url to the mod&apos;s Workshop page.</span><br><span class="line">    --Example: http://steamcommunity.com/sharedfiles/filedetails/?id=350811795</span><br><span class="line">    --ServerModSetup(&quot;350811795&quot;)</span><br><span class="line"></span><br><span class="line">--ServerModCollectionSetup takes a string of a specific mod&apos;s Workshop id. It will download all the mods in the collection and install them to the mod directory on boot.</span><br><span class="line">    --The Workshop id can be found at the end of the url to the collection&apos;s Workshop page.</span><br><span class="line">    --Example: http://steamcommunity.com/sharedfiles/filedetails/?id=379114180</span><br><span class="line">    --ServerModCollectionSetup(&quot;379114180&quot;)</span><br><span class="line"></span><br><span class="line">ServerModSetup(&quot;375850593&quot;)</span><br><span class="line">ServerModSetup(&quot;375859599&quot;)</span><br><span class="line">ServerModSetup(&quot;378160973&quot;)</span><br><span class="line">ServerModSetup(&quot;463952377&quot;)</span><br><span class="line">ServerModSetup(&quot;786556008&quot;)</span><br><span class="line"></span><br><span class="line">--ServerModCollectionSetup(&quot;id&quot;)</span><br></pre></td></tr></table></figure>
+
+<div style="text-align: center;color: grey;font-size: 14px;">
+    <img src="/images/dontStarveTogether/pic5.png" alt="对照图">
+    <span>大概就保持这个规则改一改</span>
+</div>
+<br>
+
+<p>我们搞定了这一堆东西后，然后你可以用各种方法把这一坨东西挪到你服务器上的那个<code>/home/dstsave/dst</code>里面,如果你之前开服务器测试的话里面应该会有一个<code>World1</code>的文件</p>
+<p>看我嚣张的眼神，在这个位置，保证你在这个文件夹里面，执行我们伟大的<code>rm -rf *</code>,duang一下里面的东西就没有了，然后把咱们刚才整的东西扔进去就好了。</p>
+<p>或者你比较害怕，可以找找工具比如xftp啥的把文件复制进去覆盖或者删除。</p>
+<div style="text-align: center;color: grey;font-size: 14px;">
+    <img src="/images/dontStarveTogether/pic6.png" alt>
+    <span>千万确保自己在的文件夹没问题，不然你就要上演删库跑路了</span>
+</div>
+<br>
+
+<h3 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h3><p>好了，到了我们激动人心的时候了，我们在经过乱七八糟的生成，修改，删除，覆盖之后终于可以开始运行我们的服务器了，输入以下命令运行主地图</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /home/dstserver/bin</span><br><span class="line"></span><br><span class="line">screen -S master</span><br><span class="line"></span><br><span class="line">./master_start.sh</span><br></pre></td></tr></table></figure>
+
+<p>按下<code>Ctrl+A</code>然后再按下<code>Ctrl+D</code>让它去后台搞事情去，咱们继续开地下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">screen -S caves</span><br><span class="line"></span><br><span class="line">./cave_start.sh</span><br></pre></td></tr></table></figure>
+
+<p>同样的手法，把他扔后台，顺便检查一下他们过的好不好</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -nlp |grep :10999</span><br><span class="line"></span><br><span class="line">netstat -nlp |grep :10998</span><br></pre></td></tr></table></figure>
+
+<p>如果有显示数值表示他们过的很好，你可以到饥荒上去搜你的服务器撒欢去了，反正我是一遍就好了hhhhhhhh</p>
+<div style="text-align: center;color: grey;font-size: 14px;">
+    <img src="/images/dontStarveTogether/pic7.png" alt>
+    <span>很明显他们过的不错</span>
+</div>
+<br>
+
+<p>要是哪天你闲这群玩意太占内存要删掉咋办，直接<code>kill</code>掉！！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kill -9 6999</span><br><span class="line"></span><br><span class="line">kill -9 7364</span><br></pre></td></tr></table></figure>
+
+<p>注意这里的数值对应刚才搜出来的值。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://win.web.rh01.sycdn.kuwo.cn/27f6b3298874ecf2e6261aa7a3fe62aa/5da2ca13/resource/n1/57/57/1399916910.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='c66051f15410cdf0ce12'
+        data-cs='7c5b8d4d8ea788a71288c1fef80b600b25004f5b'
+        data-r='code-killerr.github.io'
+        data-o='code-killerr'
+        data-a='code-killerr'
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-配置担忧"><span class="toc-number">1.</span> <span class="toc-text">1.配置担忧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-买买买服务器！！！"><span class="toc-number">2.</span> <span class="toc-text">2.买买买服务器！！！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-开始搞事情"><span class="toc-number">3.</span> <span class="toc-text">3.开始搞事情</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载基础环境"><span class="toc-number">3.1.</span> <span class="toc-text">下载基础环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装steam的命令行工具"><span class="toc-number">3.2.</span> <span class="toc-text">安装steam的命令行工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过steam命令行下载饥荒服务端，默认设置为-home-dstserver想换地方就换吧，我是懒得换了。"><span class="toc-number">3.3.</span> <span class="toc-text">通过steam命令行下载饥荒服务端，默认设置为/home/dstserver想换地方就换吧，我是懒得换了。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置服务端设置"><span class="toc-number">3.4.</span> <span class="toc-text">配置服务端设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#klei生成token用来注册服务器"><span class="toc-number">3.5.</span> <span class="toc-text">klei生成token用来注册服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置服务器以及你的小mod"><span class="toc-number">3.6.</span> <span class="toc-text">配置服务器以及你的小mod</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动服务器"><span class="toc-number">3.7.</span> <span class="toc-text">启动服务器</span></a></li></ol></li></ol>
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
