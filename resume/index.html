@@ -25,6 +25,189 @@
     </script>
     <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
     </script>
+	<style>
+        /* 基础样式与布局 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+            color: #333;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .resume {
+            max-width: 210mm; /* A4纸宽度 */
+            min-height: 297mm; /* A4纸高度 */
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+        }
+
+        /* 左侧边栏样式 */
+        .sidebar {
+            width: 30%;
+            background-color: #2c3e50; /* 深蓝色背景 */
+            padding: 30px 20px;
+            color: white;
+        }
+
+        .sidebar h2 {
+            color: #ecf0f1;
+            border-bottom: 2px solid #3498db; /* 蓝色下划线 */
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .sidebar h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .sidebar p, .sidebar li {
+            color: #bdc3c7;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+
+        .sidebar li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        /* 主内容区样式 */
+        .main-content {
+            width: 70%;
+            padding: 40px 30px;
+        }
+
+        /* 头部信息样式 */
+        .header {
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .header .title {
+            font-size: 1.3em;
+            color: #3498db;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.95em;
+        }
+
+        .contact-info a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        /* 各部分通用样式 */
+        section {
+            margin-bottom: 25px;
+        }
+
+        section h2 {
+            color: #2c3e50;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+            margin-bottom: 12px;
+            font-size: 1.4em;
+        }
+
+        .job, .project {
+            margin-bottom: 20px;
+        }
+
+        .job-header, .project-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .company, .project-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .date {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .position, .project-tech {
+            font-style: italic;
+            color: #3498db;
+            margin-bottom: 8px;
+        }
+
+        .job ul, .project ul {
+            padding-left: 20px;
+        }
+
+        .job li, .project li {
+            margin-bottom: 6px;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background-color: #ecf0f1;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .skill-category {
+            margin-bottom: 10px;
+        }
+
+        .skill-category strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
 </head>
 </html>
 <body class="loading">
@@ -36,52 +219,113 @@
     </div>
     <div class="section">
         <div class="article" style = "background: white;opacity: 0.9;margin-top:100px;border-radius:30px;
-        box-shadow:2px 2px 10px #909090;margin-bottom: 100px;">
-            <div class="main">
-                <div class="content">
-                
-                        <h3 id="hello-我是Allen-CK-这里也许应该是一个自我介绍，我也许应该加一套duang-的特效"><a href="#hello-我是Allen-CK-这里也许应该是一个自我介绍，我也许应该加一套duang-的特效" class="headerlink" title="hello 我是Allen(CK),这里也许应该是一个自我介绍，我也许应该加一套duang~的特效"></a>hello 我是Allen(CK),这里也许应该是一个自我介绍，我也许应该加一套duang~的特效</h3><h4 id="但很明显，我还没加-⊙o⊙-…下面是你能联系到我的方式以及我能干点啥。"><a href="#但很明显，我还没加-⊙o⊙-…下面是你能联系到我的方式以及我能干点啥。" class="headerlink" title="但很明显，我还没加(⊙o⊙)…下面是你能联系到我的方式以及我能干点啥。"></a>但很明显，我还没加(⊙o⊙)…下面是你能联系到我的方式以及我能干点啥。</h4><ul>
-<li><p>我叫啥:涂薛罡</p>
-</li>
-<li><p>啥时候毕业的:2020.7</p>
-</li>
-<li><p>从哪来的:陕西 宝鸡</p>
-</li>
-<li><p>邮箱好像有:<a href="mailto:txq0917@126.com" target="_blank" rel="noopener">txq0917@126.com</a></p>
-</li>
-<li><p>微信也有一个:13008710290</p>
-</li>
-<li><p>技能有一点点:Python JavaScript+Html+Css C/C++ VUE Android java unity3D git sql CE……</p>
-</li>
-<li><p>兴趣有一点点:ACGN,羽毛球,薅羊毛….</p>
-</li>
-<li><p>目前在干啥:RT-Mart-技术部-Android开发 2021.4.15-</p>
-</li>
-<li><p>之前在干啥:Appen-数据处理，前端开发，爬虫。2019.11</p>
-</li>
-<li><p>oh,对了，我好像还有一个gayhub: <a href="https://github.com/code-killerr" target="_blank" rel="noopener">https://github.com/code-killerr</a></p>
-</li>
-<li><p>博客应该就不用说了，现在这个就是了</p>
-</li>
-<li><p>可能还有一些小项目:</p>
-</li>
-</ul>
-<ol>
-<li><a href="https://github.com/code-killerr/Auto_Cut_Audio" target="_blank" rel="noopener">https://github.com/code-killerr/Auto_Cut_Audio</a> (它用来切割音频，oh,当然没有用贝叶斯)</li>
-<li><a href="https://github.com/code-killerr/tech-training-camp-frontend" target="_blank" rel="noopener">https://github.com/code-killerr/tech-training-camp-frontend</a> (它用来写markdown,oh,当然用了vue,不过也还只是在写着玩)</li>
-<li><a href="https://github.com/code-killerr/tank-war" target="_blank" rel="noopener">https://github.com/code-killerr/tank-war</a> (这里有一个unity小游戏，你可以尝试分屏来左右互博)</li>
-<li>android项目没开源，毕竟可以拿去当毕设，而且很多地方需要优化整理。</li>
-<li><a href="http://sansege.ck-tu.top/" target="_blank" rel="noopener">http://sansege.ck-tu.top/</a> (这里还有个使用上古技术的网站，毕竟在学校里写的)</li>
-<li>……..</li>
-</ol>
-<ul>
-<li>python代码工具一大堆，当然躺平的我还没整理,毕竟乱七八糟。</li>
-</ul>
+        box-shadow:2px 2px 10px #909090;margin-bottom: 100px;padding-top:50px;padding-bottom:50px">
+            <div class="resume">
+				<div class="container">
+					<!-- 左侧边栏 -->
+					<aside class="sidebar">
+						<h2>联系方式</h2>
+						<p>📞 13008710290</p>
+						<p>✉️ txq0917@126.com</p>
+						<p>🌐 <a href="https://code-killerr.github.io/">个人博客</a></p>
+						<p>💻 <a href="http://github.com/code-killerr">GitHub</a></p>
 
-                
-                </div>
-            </div>
-        </div>
+						<h2>专业技能</h2>
+						<div class="skill-category">
+							<strong>移动开发</strong>
+							<p>HarmonyOS NEXT/ARKTS, Android Java/Kotlin, MVC/MVVM</p>
+						</div>
+						<div class="skill-category">
+							<strong>计算机视觉与AI</strong>
+							<p>OpenCV, 二维码/一维码识别优化, YOLO识别，图像压缩，Graphrag,AI workflow,agent</p>
+						</div>
+						<div class="skill-category">
+							<strong>编程与脚本</strong>
+							<p>Python, JavaScript/Vue, Idea Plugin，Chrome Plugin</p>
+						</div>
+						<div class="skill-category">
+							<strong>核心技术</strong>
+							<p>图像/音频压缩算法，性能优化，工具链开发</p>
+						</div>
+
+						<h2>语言能力</h2>
+						<p>英语 CET-4，口语良好</p>
+					</aside>
+
+					<!-- 主内容区 -->
+					<main class="main-content">
+						<!-- 头部信息 -->
+						<header class="header">
+							<h1>涂薛罡</h1>
+							<div class="title">Android/HarmonyOS 高级开发工程师</div>
+							<div class="contact-info">
+								<span>4年经验 | 性能优化专家 | 工具链构建</span>
+							</div>
+						</header>
+
+						<!-- 专业摘要 -->
+						<section>
+							<h2>专业摘要</h2>
+							<p>拥有4年经验的Android/HarmonyOS高级开发工程师，兼具AI数据处理背景。精通从应用性能优化、底层工具链建设到计算机视觉（OpenCV）的全链路技术。主导多项关键技术创新：通过自研IDE插件使应用包体减小5-10%、利用OpenCV超分技术提升扫码性能30%。在HarmonyOS NEXT早期即具备大型项目落地经验。追求在复杂业务场景下，通过深厚技术栈解决挑战性难题。</p>
+						</section>
+
+						<!-- 工作经历 -->
+						<section>
+							<h2>工作经历</h2>
+							<div class="job">
+								<div class="job-header">
+									<span class="company">高鑫零售有限公司</span>
+									<span class="date">2021.04 - 至今</span>
+								</div>
+								<div class="position">Android/HarmonyOS 高级开发工程师</div>
+								<ul>
+									<li><strong>包体瘦身：</strong>自研JetBrains IDE图片压缩插件，通过标记位技术确保资源100%覆盖，使各主要APK大小持续减少<strong>5%-10%</strong>。</li>
+									<li><strong>扫码增强：</strong>引入OpenCV并采用超分技术进行预处理，深度改造ZXing源码，将平均扫码耗时缩短<strong>200ms</strong>，识别准确率提升<strong>15%</strong>。</li>
+									<li><strong>工程效能：</strong>维护并增强热修复框架，引入RSA加密；在HarmonyOS NEXT项目早期，沉淀通用工具与框架，提升小组开发效率。</li>
+								</ul>
+							</div>
+							<div class="job">
+								<div class="job-header">
+									<span class="company">澳鹏科技（无锡）有限公司</span>
+									<span class="date">2019.11 - 2021.04</span>
+								</div>
+								<div class="position">项目工程师（算法工具开发）</div>
+								<ul>
+									<li>开发音频处理工具，集成静音检测、自动切分等功能，将音频预处理工时从“人日”级降至“分钟”级，效率提升超<strong>90%</strong>。</li>
+									<li>基于Tkinter开发图形化数据转换框架，支持COCO、Labelme等多种格式，降低了非技术人员的操作门槛。</li>
+								</ul>
+							</div>
+						</section>
+
+						<!-- 个人项目 -->
+						<section>
+							<h2>个人项目</h2>
+							<div class="project">
+								<div class="project-header">
+									<span class="project-name">TinyPNG Image Optimizer Count</span>
+									<span class="date">2022 - 2023</span>
+								</div>
+								<div class="project-tech">Swing | JetBrains IDE Plugin | TinyPNG API</div>
+								<ul>
+									<li>一款专业的JetBrains IDE插件，为开发团队提供自动化、可追溯的图片压缩解决方案。</li>
+									<li>作为公司APK瘦身计划的核心工具落地使用，创新性地使用“标记位”机制追踪和过滤未压缩图片。</li>
+								</ul>
+							</div>
+							<div class="project">
+								<div class="project-header">
+									<span class="project-name">音频自动切分工具</span>
+									<span class="date">2020 - 2021</span>
+								</div>
+								<div class="project-tech">Python | 音频处理 | 静音检测</div>
+								<ul>
+									<li>功能强大的桌面级音频处理工具，用于对长音频进行自动/手动切分与预处理。</li>
+									<li>基于音量/振幅分析实现静音检测与自动切割，支持音频信息分析、声道分离等高级功能。</li>
+								</ul>
+							</div>
+						</section>
+					</main>
+				</div>
+			</div>
     </div>
 </div>
 

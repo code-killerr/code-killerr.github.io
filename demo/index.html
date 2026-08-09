@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AutoWetLab Agent 竞赛 Demo</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <img class="hero-media" src="./assets/hero_lab_automation.png" alt="自动化湿实验工作站">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="eyebrow">AutoWetLab Agent | AI Agent Workflow + MCP + YOLO</p>
+        <h1>湿实验自动化的安全可审计 Agent 平台</h1>
+        <p class="hero-lead">把自然语言 qPCR SOP 转换为可检索、可审计、可 dry-run、可视觉感知并由 AI 判读结果的设备任务链。</p>
+        <div class="hero-actions">
+          <button id="runBtn" type="button">运行演示</button>
+          <button id="resetBtn" class="secondary" type="button">重置</button>
+        </div>
+      </div>
+      <div class="hero-stats" aria-label="当前演示状态">
+        <div><strong>Check</strong><span>文档/边界/材料/设备条件检查</span></div>
+        <div><strong>Gate</strong><span>脚本安全审计演示</span></div>
+        <div><strong>AI</strong><span>扩增曲线与阴性对照判读</span></div>
+      </div>
+    </section>
+
+    <section class="scorebar" aria-label="竞赛展示重点">
+      <div>
+        <span>01</span>
+        <strong>MCP-first 接口</strong>
+        <p>外部 Agent 可按权限调用 parse、generate、audit、run 等工具。</p>
+      </div>
+      <div>
+        <span>02</span>
+        <strong>硬件知识库 RAG</strong>
+        <p>检索设备 API、能力边界、SOP 规则，再生成设备脚本。</p>
+      </div>
+      <div>
+        <span>03</span>
+        <strong>Safety Gate</strong>
+        <p>执行前完成 AST、阈值、合规和设备边界审计。</p>
+      </div>
+      <div>
+        <span>04</span>
+        <strong>YOLO 视觉闭环</strong>
+        <p>识别封膜、槽位、溢液状态，并和曲线/日志一起进入 AI 结果判断。</p>
+      </div>
+    </section>
+
+    <section class="demo-shell" aria-label="交互演示台">
+      <aside class="scenario">
+        <div class="panel-title">
+          <p>Demo 场景</p>
+          <h2>qPCR SOP 自动化</h2>
+        </div>
+        <textarea id="protocolInput" spellcheck="false">目标：完成一个 96 孔板 qPCR 反应体系配置和扩增检测。
+1. 为每孔加入 10 uL qPCR master mix。
+2. 加入 2 uL primer mix。
+3. 加入 3 uL template DNA。
+4. 加入 5 uL nuclease-free water，使终体积达到 20 uL。
+5. 封膜并短暂离心。
+6. 将孔板转移到 qPCR 仪。
+7. 设置程序：95C 2 min；40 cycles of 95C 15 sec, 60C 30 sec。
+8. 采集扩增曲线并判断阴性对照是否异常。</textarea>
+        <div class="audit-strip">
+          <div><span>Scope</span><strong>workflow:run</strong></div>
+          <div><span>Mode</span><strong>dry-run</strong></div>
+          <div><span>Status</span><strong id="statusBadge">Ready</strong></div>
+        </div>
+      </aside>
+
+      <section class="console">
+        <nav class="workflow" aria-label="Agent 工作流">
+          <button class="stage active" type="button" data-stage="0"><span>1</span>方案分析</button>
+          <button class="stage" type="button" data-stage="1"><span>2</span>资源清单</button>
+          <button class="stage" type="button" data-stage="2"><span>3</span>可行性</button>
+          <button class="stage" type="button" data-stage="3"><span>4</span>脚本生成</button>
+          <button class="stage" type="button" data-stage="4"><span>5</span>安全审计</button>
+          <button class="stage" type="button" data-stage="5"><span>6</span>dry-run</button>
+          <button class="stage" type="button" data-stage="6"><span>7</span>YOLO</button>
+          <button class="stage" type="button" data-stage="7"><span>8</span>总结</button>
+        </nav>
+
+        <div class="console-grid">
+          <article class="panel agent-panel">
+            <header>
+              <div>
+                <p>当前节点</p>
+                <h2 id="agentName">Protocol Analysis Agent</h2>
+              </div>
+              <span id="stageIntent">解析目标、步骤和风险点</span>
+            </header>
+            <div id="agentOutput" class="output"></div>
+          </article>
+
+          <article class="panel evidence-panel">
+            <header>
+              <div>
+                <p>安全与执行证据</p>
+                <h2>Audit Evidence</h2>
+              </div>
+              <span id="auditState">未开始</span>
+            </header>
+            <div class="metric-grid">
+              <div><strong id="retrievalMetric">待检查</strong><small>可行性</small></div>
+              <div><strong id="safetyMetric">待审计</strong><small>安全审计</small></div>
+              <div><strong id="visionMetric">0</strong><small>视觉证据</small></div>
+            </div>
+            <pre id="codeBlock">等待 Code Generation Agent 生成脚本...</pre>
+          </article>
+
+          <article class="panel visual-panel">
+            <header>
+              <div>
+                <p>视觉闭环</p>
+                <h2>YOLO + Agent</h2>
+              </div>
+              <span>Result Interpretation</span>
+            </header>
+            <div id="visualFrame" class="visual-frame pre-run" aria-label="固定视角下的实验前、实验后与识别后画面">
+              <img class="scene-triptych" src="./assets/wetlab_three_state_realistic.png" alt="同一湿实验台视角下的实验前、实验后和识别后三态">
+              <div class="panel-marker before-marker">实验前</div>
+              <div class="panel-marker after-marker">实验后</div>
+              <div class="panel-marker detect-marker">识别后</div>
+              <div class="active-panel"></div>
+              <div class="scan-beam"></div>
+              <div id="visionOverlay" class="vision-overlay idle">等待采集</div>
+            </div>
+            <div class="vision-compare" aria-label="执行前后视觉状态">
+              <div>
+                <span>执行前</span>
+                <strong id="beforeVisionText">实验台准备态，等待 dry-run 完成后采集图像。</strong>
+              </div>
+              <div>
+                <span>执行后</span>
+                <strong id="afterVisionText">尚未触发 YOLO 检测。</strong>
+              </div>
+            </div>
+            <div id="yoloTags" class="tags"></div>
+          </article>
+
+          <article class="panel summary-panel">
+            <header>
+              <div>
+                <p>实验反馈</p>
+                <h2>AI 最终分析</h2>
+              </div>
+              <span>Result Summary</span>
+            </header>
+            <p id="summaryText">流程尚未运行。</p>
+            <div class="result-checklist" aria-label="实验结果检查项">
+              <div><span>关键参数</span><strong id="curveStatus">待提取</strong></div>
+              <div><span>观测现象</span><strong id="controlStatus">待分析</strong></div>
+              <div><span>分析来源</span><strong id="nextActionStatus">等待流程推进</strong></div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
